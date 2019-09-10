@@ -101,7 +101,7 @@ public class Sanduiche {
     @Override
     public String toString() {
         final String parcial = String.join(" ",
-                une(carnes), une(recheios), une(molhos), une(paes), une(pontoDaCarne));
+                une(carnes), une(recheios), une(molhos), une(paes), pontoDaCarne);
 
         return parcial.trim().replaceAll(" +", " ");
     }
