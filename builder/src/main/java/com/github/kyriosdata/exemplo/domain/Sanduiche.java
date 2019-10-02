@@ -20,6 +20,7 @@ public class Sanduiche {
     private String pontoDaCarne;
 
     public static class Builder {
+        // TODO não adequadamente são Strings, melhor seriam Enums, Carne, Recheio, Molho, Pao e Ponto. 
         private List<String> carnes = new ArrayList<>();
         private List<String> recheios = new ArrayList<>();
         private List<String> molhos = new ArrayList<>();
@@ -102,6 +103,7 @@ public class Sanduiche {
         final String parcial = String.join(" ",
                 une(carnes), une(recheios), une(molhos), une(paes), pontoDaCarne);
 
+        // TODO aqui merece um comentário, você tirou? É claro para você o que faz?
         return parcial.trim().replaceAll(" +", " ");
     }
 
