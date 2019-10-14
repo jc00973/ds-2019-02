@@ -5,6 +5,12 @@ Uma expressão matemática será fornecida em tempo de execução,
 juntamente com valores para as variáveis empregadas pela expressão, para que o resultado correspondente possa ser produzido
 por um ou mais módulos que implementam esta funcionalidade. 
 
+O presente módulo, por outro lado, tem como
+
+> **Objetivo**: avaliar o desempenho de módulos que implementam avaliações de expressões matemáticas conhecidas em tempo de execução.
+
+Noutras palavras, o presente módulo é um _benchmark_ para avaliação de expressões matemáticas conhecidas em tempo de execução.
+
 Além dos dados, este benchmark inclui a infraestrutura necessária para execução de potenciais implementações. 
 Benchmark para avaliação de expressões matemáticas definidas em tempo de execução com foco em: 
 - desempenho;
@@ -13,11 +19,6 @@ Benchmark para avaliação de expressões matemáticas definidas em tempo de exe
 - precisão superior a 0.0001 e
 - carga.
 
-O presente módulo, por outro lado, tem como
-
-> **Objetivo**: avaliar o desempenho de módulos que implementam avaliações de expressões matemáticas conhecidas em tempo de execução.
-
-Noutras palavras, o presente módulo é um _benchmark_ para avaliação de expressões matemáticas conhecidas em tempo de execução.
 Os requisitos preliminares são fornecidos abaixo.
 
 ## Requisitos 
