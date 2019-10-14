@@ -1,9 +1,17 @@
 
-## Descrição do módulo
+# Projeto: benchmark para avaliação de expressões matemáticas definidas em tempo de execução
 
 Uma expressão matemática será fornecida em tempo de execução,
 juntamente com valores para as variáveis empregadas pela expressão, para que o resultado correspondente possa ser produzido
 por um ou mais módulos que implementam esta funcionalidade. 
+
+Além dos dados, este benchmark inclui a infraestrutura necessária para execução de potenciais implementações. 
+Benchmark para avaliação de expressões matemáticas definidas em tempo de execução com foco em: 
+- desempenho;
+- consumo de memória;
+- latência;
+- precisão superior a 0.0001 e
+- carga.
 
 O presente módulo, por outro lado, tem como
 
@@ -19,12 +27,4 @@ Ou seja, o _benchmark_ não conhece previamente as implementações destes módu
 - R2 O benchmark deve definir uma interface a ser implementada por cada um dos módulos que avaliam expressões matemáticas e fará
 sua avaliação sobre o desempenho (comportamento observável) de cada módulo que implementa esta interface. 
 
-## Notas (ainda não trabalhadas)
-Além dos dados, este benchmark inclui a infraestrutura necessária para execução de potenciais implementações. 
-Benchmark para avaliação de expressões matemáticas definidas em tempo de execução com foco em: 
-- desempenho;
-- consumo de memória;
-- latência;
-- precisão superior a 0.0001 e
-- carga.
 >>>>>>> b042bd5e9d420b83ac5cc20ea8c41f3e9660b297
