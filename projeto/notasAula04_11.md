@@ -1,0 +1,39 @@
+public interface Expression {
+
+   public double avalia(Map<String, Double> valores, String expressao);
+
+}
+
+
+criar arquivo de teste para desempenho.
+x- ; x=1; ERRO
+
+Teria que fazer um codigo generico, Template Pattern que faz o seguinte:
+carregar todo o arquivo
+
+class DesempenhoTest {
+
+   percorrer cada linha do arquivo contendo expressoes e os re
+       criar uma instância que implementa Expression (usar factory que usa como entrada nome da classe como string)
+       obtem hora corrente
+       obj.avalia(variaveis, expressao)
+       obtem hora atualizada
+       mede tempo transcorrido entre os instantes
+           guarda o delta para a expressao
+
+
+}
+
+interface FormataSaida
+
+OutpuStream formata(String json)
+
+
+class AdaptadorExpressao implements Expression {
+   porque aqui se cria, de fato o ou os objetos das classes para a solucao em questao,
+   que nao faz parte do meu trabalho,
+   com este objeto voce envia a mensagem avalia que realiza o que for necessario para que a
+           expressao seja executada e o retorno fornecido.
+}
+
+Padrões de projetos passíveis de utilização: Template, Factory, Adapter, Visitor.
