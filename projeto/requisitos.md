@@ -1,5 +1,5 @@
 
-# Projeto: benchmark para avaliação de expressões matemáticas definidas em tempo de execução
+# Projeto: benchmark para avaliação de desempenho de módulos avaliadores de expressões matemáticas definidas em tempo de execução
 
 Uma expressão matemática será fornecida em tempo de execução,
 juntamente com valores para as variáveis empregadas pela expressão, para que o resultado correspondente possa ser produzido
