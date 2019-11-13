@@ -1,8 +1,8 @@
+package projeto.src;
+
 public interface Expressao {
 
-   private String expressao;
-
-   private Map<String, Double> valores;
+   double avalia(Map<String, Double> variaveis);
 
 }
 
