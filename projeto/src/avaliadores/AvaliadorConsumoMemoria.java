@@ -6,7 +6,7 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src;
+package projeto.src.avaliadores;
 
 public interface AvaliadorConsumoMemoria {
 
@@ -21,23 +21,36 @@ public interface AvaliadorConsumoMemoria {
 
     }
 
-    double avaliarConsumoMemoria(Map<String, Double> valores, String expressao) {
+    /**
+     *
+     * O método recebe os valores das variáveis, a expressão e o resultado esperado da avaliação da expressão. Após,
+     * irá analisar e retornar o consumo de memória durante a execução da avaliação.
+     *
+     * @param variaveis Corresponde a pares de variáveis com seus respectivos valores.
+     * @param expressao A expressão que será avaliada.
+     * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
+     *
+     * @return Retorna a memória gasta pelo avaliador.
+     *
+     */
+    long avaliarConsumoMemoria(Map<String, Double> valores, String expressao, double resultadoEsperado) {
 
-        Expressao expr = adapter.getExpessaoFor("x + y");
-        Map<String, Double> variaveis = new HashMap<>();
-        variaveis.put(x, 10);
-        variaveis.put(y, 20);
-        long inicio = System.getCurrentTime();
-        double resposta = expr.avalia(variaveis);
-        long termino = System.getCurrentTime();
+        Expressao exp = adapter.getExpressaoFor(expressao);
 
-        if (Double.compare(resposta, 30) == 0) {
+        Runtime runtime = Runtime.getRuntime();
+        long memoriaUtilizadaAntes = runtime.totalMemory() - runtime.freeMemory();
 
+        double resposta = exp.avalia(variaveis);
+
+        long memoriaUtilizadaDepois = runtime.totalMemory() - runtime.freeMemory();
+
+        long memoriaUtilizada = memoriaUtilizadaDepois - memoriaUtilizadaAntes;
+
+        if(! Double.compare(resposta, resultadoEsperado)) {
+            throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
         }
 
-        long tempoEmMilissegundo = termino - inicio;
-
-        return intervaloDeTempo;
+        return memoriaUtilizada;
 
     }
 
