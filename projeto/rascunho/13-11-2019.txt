@@ -1,6 +1,0 @@
-1- Dentre os critérios de avaliação, qual a diferença entre desempenho e latência?
-
-2- Esclarecimentos sobre o conceito de carga e o que deve ser avaliado em relação a ele.
-
-3- O benchmark não deve ser capaz de interpretar a expressão matemática, correto? Ele deve apenas repassar a expressão
-em forma de String e um Map<String, Double> com os valores de cada elemento para o avaliador de expressão?

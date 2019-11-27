@@ -1,7 +1,6 @@
-- Método de preparação na interface de adaptador (esse que vai ser a latência).
+1- Dentre os critÃ©rios de avaliaÃ§Ã£o, qual a diferenÃ§a entre desempenho e latÃªncia?
 
-- Teste deve ser capaz de identificar erros de sintaxe na resposta de avaliações.
+2- Esclarecimentos sobre o conceito de carga e o que deve ser avaliado em relaÃ§Ã£o a ele.
 
-- Teste também só com constantes.
-
-- Carga: verificar funcionamento em utilizações extremas (1m de vezes por exemplo).
+3- O benchmark nÃ£o deve ser capaz de interpretar a expressÃ£o matemÃ¡tica, correto? Ele deve apenas repassar a expressÃ£o
+em forma de String e um Map<String, Double> com os valores de cada elemento para o avaliador de expressÃ£o?
