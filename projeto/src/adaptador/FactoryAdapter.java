@@ -8,6 +8,8 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
+package projeto.src.adaptador;
+
 public interface FactoryAdapter {
 
     /**
@@ -22,14 +24,11 @@ public interface FactoryAdapter {
 
     }
 
-    Adapter getInstance() {
-
+    /**
+     * Retorna a instância do adapter.
+     */
+    public Adapter getInstance() {
         return adp;
-
-    }
-
-    Expressao getInstanceFor(String expressao) {
-
     }
 
 }
