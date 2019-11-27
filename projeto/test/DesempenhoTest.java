@@ -7,20 +7,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DesempenhoTest {
 
+    Map<String, Double> variaveis = new HashMap<>();
+    variaveis.put(x, 10);
+    variaveis.put(y, 20);
+
     @Test
-    void testCrivoEratostenes() {
-        assertEquals(true, AlgoritmosEmJava.crivoEratostenes(vetorTeste1, 2));
-        assertEquals(true, AlgoritmosEmJava.crivoEratostenes(vetorTeste2, 3));
-        assertEquals(true, AlgoritmosEmJava.crivoEratostenes(vetorTeste3, 5));
-        assertEquals(true, AlgoritmosEmJava.crivoEratostenes(vetorTeste7, 59));
-        assertEquals(false, AlgoritmosEmJava.crivoEratostenes(vetorTeste4, 4));
-        assertEquals(false, AlgoritmosEmJava.crivoEratostenes(vetorTeste5, 6));
-        assertEquals(false, AlgoritmosEmJava.crivoEratostenes(vetorTeste6, 8));
-        assertEquals(false, AlgoritmosEmJava.crivoEratostenes(vetorTeste8, 36));
+    void testDesempenho() {
+        assertEquals(500, AvaliadorDesempenho.avaliarDesempenho(variaveis, expressao));
         assertThrows(IllegalArgumentException.class,
-                () -> AlgoritmosEmJava.crivoEratostenes(vetorTeste9, -17));
-        assertThrows(IllegalArgumentException.class,
-                () -> AlgoritmosEmJava.crivoEratostenes(vetorTeste10, 3));
+                () -> AvaliadorDesempenho.avaliarDesempenho(variaveis, expressaoInvalida));
 
     }
 }
