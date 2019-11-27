@@ -6,7 +6,7 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src;
+package projeto.src.avaliadores;
 
 public interface AvaliadorLatencia {
 
@@ -21,23 +21,33 @@ public interface AvaliadorLatencia {
 
     }
 
-    double avaliarLatencia(Map<String, Double> valores, String expressao) {
+    /**
+     *
+     * O método recebe os valores das variáveis, a expressão e o resultado esperado da avaliação da expressão.
+     *
+     * @param variaveis Corresponde a pares de variáveis com seus respectivos valores.
+     * @param expressao A expressão que será avaliada.
+     * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
+     *
+     * @return Retorna o tempo gasto pelo método preparar, em milissegundo.
+     *
+     */
+    double avaliarLatencia(Map<String, Double> variaveis, String expressao, double resultadoEsperado) {
 
-        Expressao expr = adapter.getExpessaoFor("x + y");
-        Map<String, Double> variaveis = new HashMap<>();
-        variaveis.put(x, 10);
-        variaveis.put(y, 20);
+        Expressao exp = adapter.getExpessaoFor(expressao);
+
         long inicio = System.getCurrentTime();
-        double resposta = expr.avalia(variaveis);
+        adapter.preparar();
         long termino = System.getCurrentTime();
-
-        if (Double.compare(resposta, 30) == 0) {
-
-        }
-
         long tempoEmMilissegundo = termino - inicio;
 
-        return intervaloDeTempo;
+        double resposta = exp.avalia(variaveis);
+
+        if(! Double.compare(resposta, resultadoEsperado)) {
+            throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+        }
+
+        return tempoEmMilissegundo;
 
     }
 
