@@ -9,7 +9,7 @@ public interface Expression {
     x- ; x=1; ERRO
 
 - Teria que fazer um código genérico, Template Pattern que faz o seguinte:
-    Carregar todo o arquivo.
+    Carregar todo o arquivo...
 
 class DesempenhoTest {
 
