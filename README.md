@@ -8,3 +8,12 @@ Repositório para códigos produzidos referentes às atividades supervisionadas 
 -Professor: Fábio Nogueira de Lucena
 
 Universidade Federal de Goiás
+
+## Projeto prático: Benchmark
+
+
+> **Objetivo**: avaliar o desempenho de módulos que implementam avaliações de expressões matemáticas conhecidas em tempo de execução.
+
+
+- [Requisitos](projeto/requisitos.md)
+- [Design detalhado](projeto/)
