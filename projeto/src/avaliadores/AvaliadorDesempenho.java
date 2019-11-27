@@ -1,9 +1,20 @@
+/**
+ * O código abaixo é uma ilustração do design planejado para a classe que deve conter o método principal de avaliação
+ * de desempenho. Ou seja, por se tratar de design, ele serve para orientar e direcionar o desenvolvedor na construção
+ * do software em si, não tendo portanto o intuito de servir como código final implementável em si.
+ *
+ * @author jc00973 - João Carlos Fonseca
+ */
+
 package projeto.src;
 
 public interface AvaliadorDesempenho {
 
     private Adapter adapter;
 
+    /**
+     * O construtor instancia o adaptador através de uma factory.
+     */
     AvaliadorDesempenho() {
 
         adapter = FactoryAdapter.getInstance();
