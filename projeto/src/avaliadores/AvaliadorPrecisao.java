@@ -6,7 +6,7 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src;
+package projeto.src.avaliadores;
 
 public interface AvaliadorPrecisao {
 
@@ -18,24 +18,26 @@ public interface AvaliadorPrecisao {
 
     }
 
-    double avaliarPrecisao(Map<String, Double> valores, String expressao) {
+    /**
+     * O método recebe os valores das variáveis, a expressão, oresultado esperado da avaliação da expressão e o valor
+     * do epsilon, referente ao intervalo permitido do resultado em termos de precisão. Com estes dados, o método efetua
+     * a análise da resposta dada pelo avaliador, considerando a precisão requisitada.
+     *
+     * @param variaveis Corresponde a pares de variáveis com seus respectivos valores.
+     * @param expressao A expressão que será avaliada.
+     * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
+     * @param epsilon O intervalo permitido para avaliar a precisão do resultado.
+     *
+     * @return Retorna se o resultado da avaliação está dentro do intervalo de precisão requisitado.
+     *
+     */
+    boolean avaliarPrecisao(Map<String, Double> variaveis, String expressao, double resultadoEsperado, double epsilon) {
 
-        Expressao expr = adapter.getExpessaoFor("x + y");
-        Map<String, Double> variaveis = new HashMap<>();
-        variaveis.put(x, 10);
-        variaveis.put(y, 20);
-        long inicio = System.getCurrentTime();
-        double resposta = expr.avalia(variaveis);
-        long termino = System.getCurrentTime();
+        Expressao exp = adapter.getExpressaoFor(expressao);
 
-        if (Double.compare(resposta, 30) == 0) {
+        double resposta = exp.avalia(variaveis);
 
-        }
-
-        long tempoEmMilissegundo = termino - inicio;
-
-        return intervaloDeTempo;
+        return Math.abs(resposta - resultadoEsperado) < epsilon;
 
     }
-
 }
