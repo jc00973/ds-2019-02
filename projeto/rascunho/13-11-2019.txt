@@ -1,0 +1,7 @@
+- Método de preparInterface Adapter inserida.ação na interface de adaptador (esse que vai ser a latência).
+
+- Teste deve ser capaz de identificar erros de sintaxe na resposta de avaliações.
+
+- Teste também só com constantes.
+
+- Carga: verificar funcionamento em utilizações extremas (1m de vezes por exemplo).
