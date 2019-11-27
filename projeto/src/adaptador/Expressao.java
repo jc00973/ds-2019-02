@@ -23,5 +23,18 @@ public interface Expressao {
     */
    double avalia(Map<String, Double> variaveis);
 
+   /**
+    *  Caso o avaliador que será analisado precise implementar um código de preparação, que será executado antes da
+    *  execução da avaliação em si, este deverá constar neste método para que o critério de latência seja analisado.
+    *  A implementação do método em si fica a cargo do utilizador do benchmark.
+    */
+   void preparar();
+
+   /**
+    *  O utilizador do benchmark deverá implementar a forma que irá instanciar uma expressão no benchmark de maneira que
+    *  essa instância possa ser utilizada como parâmetro no projeto que será avaliado.
+    */
+   Expressao getExpressaoFor(String expressao);
+
 }
 
