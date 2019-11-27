@@ -10,6 +10,15 @@ package projeto.src;
 
 public interface Expressao {
 
+   /**
+    * A interface expressão será implementada interface adaptador, portanto, fica a critério do utilizador do benchmark
+    * a maneira que fará a integração do benchmark ao seu avaliador de expressões, desde que o método avalia retorne um
+    * double referente ao resultado da avaliação.
+    *
+    * @param variaveis Os valores correspondentes às variáveis da expressão.
+    *
+    * @return O resultado obtido pelo avaliador de expressão.
+    */
    double avalia(Map<String, Double> variaveis);
 
 }
