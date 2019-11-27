@@ -8,9 +8,11 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src.adaptador;
+package adaptador;
 
-public interface FactoryAdapter {
+public class FactoryAdapter {
+
+    Adapter adp;
 
     /**
      * Cria uma instância do avaliador de expressões.
@@ -18,7 +20,7 @@ public interface FactoryAdapter {
      * @param nome
      * @param jarFile
      */
-    FactoryImplementacao(String nome, String jarFile) {
+    FactoryAdapter(String nome, String jarFile) {
 
         Adapter adp = new Adapter(nome, jarFile);
 

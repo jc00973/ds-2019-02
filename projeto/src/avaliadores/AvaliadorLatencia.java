@@ -6,18 +6,25 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src.avaliadores;
+package avaliadores;
 
-public interface AvaliadorLatencia {
+import adaptador.Adapter;
+import adaptador.FactoryAdapter;
+import adaptador.Expressao;
+
+import java.util.Map;
+
+public class AvaliadorLatencia {
 
     private Adapter adapter;
+    private FactoryAdapter factoryAdapter;
 
     /**
      * O construtor instancia o adaptador através de uma factory.
      */
     AvaliadorLatencia() {
 
-        adapter = FactoryAdapter.getInstance();
+        adapter = factoryAdapter.getInstance();
 
     }
 
@@ -34,21 +41,28 @@ public interface AvaliadorLatencia {
      */
     double avaliarLatencia(Map<String, Double> variaveis, String expressao, double resultadoEsperado) {
 
-        Expressao exp = adapter.getExpessaoFor(expressao);
+        try {
 
-        long inicio = System.getCurrentTime();
-        adapter.preparar();
-        long termino = System.getCurrentTime();
-        long tempoEmMilissegundo = termino - inicio;
+            Expressao exp = adapter.getExpressaoFor(expressao);
 
-        double resposta = exp.avalia(variaveis);
+            long inicio = System.currentTimeMillis();
+            adapter.preparar();
+            long termino = System.currentTimeMillis();
+            long tempoEmMilissegundo = termino - inicio;
 
-        if(! Double.compare(resposta, resultadoEsperado)) {
-            throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+            double resposta = exp.avalia(variaveis);
+
+            if (Double.compare(resposta, resultadoEsperado) != 0) {
+                throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+            }
+
+            return tempoEmMilissegundo;
+
+        } catch (RespostaErradaException e) {
+            e.printStackTrace();
         }
 
-        return tempoEmMilissegundo;
-
+        return 0;
     }
 
 }

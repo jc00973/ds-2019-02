@@ -6,18 +6,25 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src.avaliadores;
+package avaliadores;
 
-public interface AvaliadorConsumoMemoria {
+import adaptador.Adapter;
+import adaptador.FactoryAdapter;
+import adaptador.Expressao;
+
+import java.util.Map;
+
+public class AvaliadorConsumoMemoria {
 
     private Adapter adapter;
+    private FactoryAdapter factoryAdapter;
 
     /**
      * O construtor instancia o adaptador através de uma factory.
      */
     AvaliadorConsumoMemoria() {
 
-        adapter = FactoryAdapter.getInstance();
+        adapter = factoryAdapter.getInstance();
 
     }
 
@@ -33,25 +40,32 @@ public interface AvaliadorConsumoMemoria {
      * @return Retorna a memória gasta pelo avaliador.
      *
      */
-    long avaliarConsumoMemoria(Map<String, Double> valores, String expressao, double resultadoEsperado) {
+    long avaliarConsumoMemoria(Map<String, Double> variaveis, String expressao, double resultadoEsperado) {
 
-        Expressao exp = adapter.getExpressaoFor(expressao);
+        try {
 
-        Runtime runtime = Runtime.getRuntime();
-        long memoriaUtilizadaAntes = runtime.totalMemory() - runtime.freeMemory();
+            Expressao exp = adapter.getExpressaoFor(expressao);
 
-        double resposta = exp.avalia(variaveis);
+            Runtime runtime = Runtime.getRuntime();
+            long memoriaUtilizadaAntes = runtime.totalMemory() - runtime.freeMemory();
 
-        long memoriaUtilizadaDepois = runtime.totalMemory() - runtime.freeMemory();
+            double resposta = exp.avalia(variaveis);
 
-        long memoriaUtilizada = memoriaUtilizadaDepois - memoriaUtilizadaAntes;
+            long memoriaUtilizadaDepois = runtime.totalMemory() - runtime.freeMemory();
 
-        if(! Double.compare(resposta, resultadoEsperado)) {
-            throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+            long memoriaUtilizada = memoriaUtilizadaDepois - memoriaUtilizadaAntes;
+
+            if (Double.compare(resposta, resultadoEsperado) != 0) {
+                throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+            }
+
+            return memoriaUtilizada;
+
+        } catch (RespostaErradaException e) {
+            e.printStackTrace();
         }
 
-        return memoriaUtilizada;
+        return 0;
 
     }
-
 }

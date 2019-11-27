@@ -6,7 +6,9 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src;
+package adaptador;
+
+import java.util.Map;
 
 public interface Expressao {
 

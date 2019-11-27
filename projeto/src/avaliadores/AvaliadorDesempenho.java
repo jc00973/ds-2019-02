@@ -6,18 +6,25 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src.avaliadores;
+package avaliadores;
 
-public interface AvaliadorDesempenho {
+import adaptador.Adapter;
+import adaptador.FactoryAdapter;
+import adaptador.Expressao;
+
+import java.util.Map;
+
+public class AvaliadorDesempenho {
 
     private Adapter adapter;
+    private FactoryAdapter factoryAdapter;
 
     /**
      * O construtor instancia o adaptador através de uma factory.
      */
     AvaliadorDesempenho() {
 
-        adapter = FactoryAdapter.getInstance();
+        adapter = factoryAdapter.getInstance();
 
     }
 
@@ -28,24 +35,32 @@ public interface AvaliadorDesempenho {
      * @param variaveis Corresponde a pares de variáveis com seus respectivos valores.
      * @param expressao A expressão que será avaliada.
      * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
+     * @param tempoMaximoEmMilissegundos O tempo máximo em milissegundos para o desempenho ser aprovado.
      *
-     * @return Retorna o tempo gasto pelo avaliador, em milissegundo.
+     * @return Retorna se o desempenho foi aprovado ou não.
      *
      */
-    double avaliarDesempenho(Map<String, Double> variaveis, String expressao, double resultadoEsperado) {
+    boolean avaliarDesempenho(Map<String, Double> variaveis, String expressao, double resultadoEsperado, double tempoMaximoEmMilissegundos) {
 
-        Expressao exp = adapter.getExpressaoFor(expressao);
+        try {
 
-        long inicio = System.getCurrentTime();
-        double resposta = exp.avalia(variaveis);
-        long termino = System.getCurrentTime();
-        long tempoEmMilissegundo = termino - inicio;
+            Expressao exp = adapter.getExpressaoFor(expressao);
 
-        if(! Double.compare(resposta, resultadoEsperado)) {
-            throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+            long inicio = System.currentTimeMillis();
+            double resposta = exp.avalia(variaveis);
+            long termino = System.currentTimeMillis();
+            long tempoEmMilissegundo = termino - inicio;
+
+            if (Double.compare(resposta, resultadoEsperado) != 0) {
+                throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+            }
+
+            return tempoEmMilissegundo < tempoMaximoEmMilissegundos;
+
+        } catch (RespostaErradaException e) {
+            e.printStackTrace();
         }
 
-        return tempoEmMilissegundo;
-
+        return false;
     }
 }

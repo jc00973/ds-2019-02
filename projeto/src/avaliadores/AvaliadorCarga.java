@@ -6,19 +6,26 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src.avaliadores;
+package avaliadores;
 
-public interface AvaliadorCarga {
+import adaptador.Adapter;
+import adaptador.FactoryAdapter;
+import adaptador.Expressao;
+
+import java.util.List;
+import java.util.Map;
+
+public class AvaliadorCarga {
 
     private Adapter adapter;
-
+    private FactoryAdapter factoryAdapter;
 
     /**
      * O construtor instancia o adaptador através de uma factory.
      */
     AvaliadorCarga() {
 
-        adapter = FactoryAdapter.getInstance();
+        adapter = factoryAdapter.getInstance();
 
     }
 
@@ -37,18 +44,18 @@ public interface AvaliadorCarga {
      * @return Retorna o tempo gasto pelo método preparar, em milissegundo.
      *
      */
-    boolean avaliarCarga(Map<String, Double> variaveis, List<String> expressoes, List<double> resultadoEsperado, int carga) {
+    boolean avaliarCarga(Map<String, Double> variaveis, List<String> expressoes, List<Double> resultadoEsperado, int carga) {
 
         try {
 
             for(int i = 0 ; i < carga ; i++) {
-                for(int j = 0 ; j < expressoes.lenght() ; j++) {
+                for(int j = 0 ; j < expressoes.size() ; j++) {
 
                     Expressao exp = adapter.getExpressaoFor(expressoes.get(j));
 
                     double resposta = exp.avalia(variaveis);
 
-                    if(! Double.compare(resposta, resultadoEsperado)) {
+                    if (Double.compare(resposta, resultadoEsperado.get(j)) != 0) {
                         throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
                     }
                 }
@@ -56,8 +63,10 @@ public interface AvaliadorCarga {
 
         } catch (RuntimeException re) {
             return false;
+        } catch (RespostaErradaException e) {
+            return false;
         }
 
+        return true;
     }
-
 }

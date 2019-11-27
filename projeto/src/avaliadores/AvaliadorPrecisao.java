@@ -6,15 +6,22 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src.avaliadores;
+package avaliadores;
 
-public interface AvaliadorPrecisao {
+import adaptador.Adapter;
+import adaptador.FactoryAdapter;
+import adaptador.Expressao;
+
+import java.util.Map;
+
+public class AvaliadorPrecisao {
 
     private Adapter adapter;
+    private FactoryAdapter factoryAdapter;
 
     AvaliadorPrecisao() {
 
-        adapter = FactoryAdapter.getInstance();
+        adapter = factoryAdapter.getInstance();
 
     }
 

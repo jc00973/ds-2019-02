@@ -8,9 +8,11 @@
  * @author jc00973 - João Carlos Fonseca
  */
 
-package projeto.src.adaptador;
+package adaptador;
 
-public interface Adapter implements Expressao {
+import java.util.Map;
+
+public class Adapter implements Expressao {
 
     String nome;
     String jarFile;
@@ -35,7 +37,11 @@ public interface Adapter implements Expressao {
      *  essa instância possa ser utilizada como parâmetro no projeto que será avaliado.
      */
     public Expressao getExpressaoFor(String expressao) {
-        return expr;
+
+    };
+
+    public double avalia(Map<String, Double> variaveis) {
+
     };
 
 }
