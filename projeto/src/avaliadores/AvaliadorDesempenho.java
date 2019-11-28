@@ -35,12 +35,11 @@ public class AvaliadorDesempenho {
      * @param variaveis Corresponde a pares de variáveis com seus respectivos valores.
      * @param expressao A expressão que será avaliada.
      * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
-     * @param tempoMaximoEmMilissegundos O tempo máximo em milissegundos para o desempenho ser aprovado.
      *
-     * @return Retorna se o desempenho foi aprovado ou não.
+     * @return Retorna o tempo gasto para o processamento da avaliação.
      *
      */
-    boolean avaliarDesempenho(Map<String, Double> variaveis, String expressao, double resultadoEsperado, double tempoMaximoEmMilissegundos) {
+    boolean avaliarDesempenho(Map<String, Double> variaveis, String expressao, double resultadoEsperado) {
 
         try {
 
@@ -55,7 +54,7 @@ public class AvaliadorDesempenho {
                 throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
             }
 
-            return tempoEmMilissegundo < tempoMaximoEmMilissegundos;
+            return tempoEmMilissegundo;
 
         } catch (RespostaErradaException e) {
             e.printStackTrace();
