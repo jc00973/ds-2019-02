@@ -15,7 +15,7 @@ o seu comportamento em situações de estresse.
 Este benchmark foi pensado para abordar os cincos critérios de avaliação por meio do padrão de projeto Strategy, havendo
 uma interface _Avaliador_ e as três classes que a implementam: _ConsumoMemoria_, _Desempenho_ e _Latencia_.
 
-Os critérios cargas e precisão foram inseridos como preliminares a qualquer um dos três tipos de critérios de avaliação
+Os critérios de carga e precisão foram definidos como preliminares a qualquer um dos três tipos de critérios de avaliação
 acima. 
 
 A precisão é abordada como um parâmetro que deve ser informado juntamente com a própria expressão, os valores de
@@ -26,7 +26,7 @@ O critério de carga também é abordado de maneira integrada aos demais critérios.
 citados acima, a quantidade de repetições também deve ser informada a cada caso de teste inserido. Com isso, o intuito
 é dar autonomia ao Avaliador devido a possibilidade de personalizar a avaliação da carga.
 
-Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com exemplos de implementação.
+Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [exemplos de implementação](projeto/).
 
  ### Conceitos fundamentais
 
@@ -46,15 +46,15 @@ Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com e
    - Para cada linha de teste do arquivo de entrada, um instância de _BancadaDeTestes_ é criada. 
     
   ##### 03
-   - Convém observar que para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
+   - Para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
    obtém-se a expressão correspondente, a partir da qual, por meio da instância de _Adapter_ obtém-se a instância de 
    _Expressao_ correspondente. 
     
   ##### 04
   - Este último objeto recebe a mensagem _avaliacao_ cujo argumento é o conjunto de valores. O retorno é verificado
     com aquele do teste. 
-  - Se o valor retornado difere do esperado, então o _benchmark_ é interrompido.    
-  - Caso contrário, o tempo gasto será acumulado.  
+  - Se o valor retornado difere do esperado, então o caso de teste retorna um valor correspondete ao erro.    
+  - Ao final, o benchmark retorna um arquivo txt contendo o relatório da avaliação realizada.  
 
 ### Validação da correção
 
