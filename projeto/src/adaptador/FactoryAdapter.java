@@ -19,10 +19,8 @@ public class FactoryAdapter {
      * @param nome
      * @param jarFile
      */
-    FactoryAdapter(String nome, String jarFile) {
-
+    public Adapter newInstance(String nomeDaClasse) {
         Adapter adp = new Adapter(nome, jarFile);
-
     }
 
     /**
