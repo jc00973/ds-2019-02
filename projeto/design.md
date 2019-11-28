@@ -97,19 +97,19 @@ O construtor recebe como argumento o nome de um arquivo CSV cujas três colunas s
 O método _get_ será empregado para recuperar, um por um, na ordem em que aparecem no arquivo CSV, os testes contidos 
 neste arquivo. 
 
-#### - [AvaliadorCarga](projeto/src/avaliadores/AvaliadorCarga.java)
+#### [AvaliadorCarga](src/avaliadores/AvaliadorCarga.java) (classe)
 Classe que avalia o desempenho de uma implementação de um avaliador de expressões em situação de carga.
 
-#### AvaliadorConsumoMemoria (classe)
+#### [AvaliadorConsumoMemoria](src/avaliadores/AvaliadorConsumoMemoria.java) (classe)
 Classe que avalia o consumo de memória de uma implementação de um avaliador de expressões.
 
-#### AvaliadorDesempenho (classe)
+#### [AvaliadorDesempenho](src/avaliadores/AvaliadorDesempenho.java) (classe)
 Classe que avalia o desempenho de uma implementação de um avaliador de expressões.
 
-#### AvaliadorDesempenho (classe)
+#### [AvaliadorLatencia](src/avaliadores/AvaliadorLatencia.java) (classe)
 Classe que avalia a latência de uma implementação de um avaliador de expressões.
 
-#### AvaliadorDesempenho (classe)
+#### [AvaliadorPrecisao](src/avaliadores/AvaliadorPrecisao.java) (classe)
 Classe que avalia a precisão dos resultado obtidos por uma implementação de um avaliador de expressões.
 
 ## Cenários
