@@ -17,27 +17,26 @@ o seu comportamento em situações de estresse.
 
 - Precisão: Se a precisão do resultado obtido pelo avaliador de expressões atende ao epsilon exigido como precisão.  
 
-#### Funcionamento básico
+ ##### Fluxo principal de funcionamento:
 
-    ###### 01
-    - A partir do nome da classe é obtida uma instância de _Adapter_. 
+  ###### 01
+   - A partir do nome da classe é obtida uma instância de _Adapter_. 
     
-    ###### 02   
-    - Para cada linha de teste do arquivo de entrada, um instância de _BancadaDeTestes_ é criada. 
+  ###### 02   
+   - Para cada linha de teste do arquivo de entrada, um instância de _BancadaDeTestes_ é criada. 
     
-    ###### 03
-    - Convém observar que para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
-    obtém-se a expressão correspondente, a partir da qual, por meio da instância de _Adapter_ obtém-se a instância de 
-    _Expressao_ correspondente. 
+  ###### 03
+   - Convém observar que para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
+   obtém-se a expressão correspondente, a partir da qual, por meio da instância de _Adapter_ obtém-se a instância de 
+   _Expressao_ correspondente. 
     
-    ###### 04
-    - Este último objeto recebe a mensagem _avaliacao_ cujo argumento é o conjunto de valores. O retorno é verificado
+  ###### 04
+  - Este último objeto recebe a mensagem _avaliacao_ cujo argumento é o conjunto de valores. O retorno é verificado
     com aquele do teste. 
     
-    - Se o valor retornado difere do esperado, então o _benchmark_ é interrompido. 
+  - Se o valor retornado difere do esperado, então o _benchmark_ é interrompido. 
     
-    - Caso contrário, o tempo gasto será acumulado.  
-
+  - Caso contrário, o tempo gasto será acumulado.  
 
 # Validação da correção
 
