@@ -11,28 +11,19 @@ package adaptador;
 
 import java.util.Map;
 
-public class Adapter implements Expressao {
+public interface Adapter {
 
-    String nome;
-    String jarFile;
-
-    /**
-     *  Método construtor padrão.
-     */
-    Adapter(String nome, String jarFile) {
-        this.nome = nome;
-        this.jarFile = jarFile;
+    Adapter() {
     }
 
     public void preparar() {};
 
+    /**
+     *  O utilizador do benchmark deverá implementar a forma que irá instanciar uma expressão no benchmark de maneira que
+     *  essa instância possa ser utilizada como parâmetro no projeto que será avaliado.
+     */
+    public Expressao getExpressaoFor(String expressao);
 
-    public Expressao getExpressaoFor(String expressao) {
-
-    };
-
-    public double avalia(Map<String, Double> variaveis) {
-
-    };
+    public double avalia(Map<String, Double> variaveis);
 
 }
