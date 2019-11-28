@@ -3,7 +3,6 @@
  * de latência. Ou seja, por se tratar de design, ele serve para orientar e direcionar o desenvolvedor na construção
  * do software em si, não tendo portanto o intuito de servir como código final implementável em si.
  *
- * @author jc00973 - João Carlos Fonseca
  */
 
 package avaliadores;

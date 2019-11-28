@@ -5,7 +5,6 @@
  * do projeto de design do benchmark em si, portanto, reitero que este arquivo serve apenas para elucidar a necessidade
  * de implementação de um adaptador.
  *
- * @author jc00973 - João Carlos Fonseca
  */
 
 package adaptador;
