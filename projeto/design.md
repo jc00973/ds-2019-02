@@ -79,7 +79,7 @@ fornecida é "2*)", então o resultado deve ser "ERRO", pois não se trata de uma e
 
 - Toda implementação a ser avaliada pelo presente _benchmark_ deve incluir as classes/interfaces identificadas abaixo. 
 
-#### Aplicativo (classe)
+#### [Aplicativo](src/Aplicativo.java) (classe)
 Ponto de entrada para execução do _benchmark_. Este aplicativo recebe como entrada um arquivo txt indicando o que 
 deverá ser executado pelo _benchmark_.
 
