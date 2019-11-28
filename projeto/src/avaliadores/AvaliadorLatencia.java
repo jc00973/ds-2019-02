@@ -36,7 +36,7 @@ public class AvaliadorLatencia {
      * @param expressao A expressão que será avaliada.
      * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
      *
-     * @return Retorna o tempo gasto pelo método preparar, em milissegundo.
+     * @return Retorna o tempo gasto pelo método preparar, em milissegundos.
      *
      */
     double avaliarLatencia(Map<String, Double> variaveis, String expressao, double resultadoEsperado) {
