@@ -4,30 +4,39 @@
 Além de permitir validar uma implementação de um avaliador de expressões, 
 o presente _benchmark_ também considera relevante outros aspectos, quem devem
 ser abordados em cinco módulos distintos:
+
 - Desempenho: Tempo gasto para avaliação de uma expressão.
+
 - Memória: Consumo de memória incorrido ao avaliar expressões.
-- Latência: Tempo gasto para pré-processamento de uma expressão, caso
- exista esta opção, sem incluir o tempo consumido na avaliação da expressão.
+
+- Latência: Tempo gasto para pré-processamento de uma expressão, caso  exista esta opção, sem incluir o tempo consumido
+ na avaliação da expressão.
+ 
 - Carga: Tempo gasto para avaliação de diversas expressões, simulando a utilização extrema do avaliador para observar 
 o seu comportamento em situações de estresse.
+
 - Precisão: Se a precisão do resultado obtido pelo avaliador de expressões atende ao epsilon exigido como precisão.  
 
 #### Funcionamento básico
 
-1. A partir do nome da classe é obtida uma instância de _Adapter_. 
-
-2. Para cada linha de teste do arquivo de entrada, um instância de _BancadaDeTestes_ é criada. 
-
-3. Convém observar que para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
-obtém-se a expressão correspondente, a partir da qual, por meio da instância de _Adapter_ obtém-se a instância de 
-_Expressao_ correspondente. 
-
-4. Este último objeto recebe a mensagem _avaliacao_ cujo argumento é o conjunto de valores. O retorno é verificado
-com aquele do teste. 
-
-5. Se o valor retornado difere do esperado, então o _benchmark_ é interrompido. 
-
-6. Caso contrário, o tempo gasto será acumulado.  
+    ###### 01
+    - A partir do nome da classe é obtida uma instância de _Adapter_. 
+    
+    ###### 02   
+    - Para cada linha de teste do arquivo de entrada, um instância de _BancadaDeTestes_ é criada. 
+    
+    ###### 03
+    - Convém observar que para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
+    obtém-se a expressão correspondente, a partir da qual, por meio da instância de _Adapter_ obtém-se a instância de 
+    _Expressao_ correspondente. 
+    
+    ###### 04
+    - Este último objeto recebe a mensagem _avaliacao_ cujo argumento é o conjunto de valores. O retorno é verificado
+    com aquele do teste. 
+    
+    - Se o valor retornado difere do esperado, então o _benchmark_ é interrompido. 
+    
+    - Caso contrário, o tempo gasto será acumulado.  
 
 
 # Validação da correção
