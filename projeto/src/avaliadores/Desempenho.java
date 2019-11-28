@@ -13,7 +13,7 @@ import adaptador.Expressao;
 
 import java.util.Map;
 
-public class AvaliadorDesempenho {
+public class Desempenho implements Avaliador {
 
     private Adapter adapter;
     private FactoryAdapter factoryAdapter;
@@ -21,9 +21,9 @@ public class AvaliadorDesempenho {
     /**
      * O construtor instancia o adaptador através de uma factory.
      */
-    AvaliadorDesempenho() {
+    Desempenho() {
 
-        adapter = factoryAdapter.getInstance();
+        adapter = factoryAdapter.newInstance("avaliador");
 
     }
 
@@ -38,27 +38,35 @@ public class AvaliadorDesempenho {
      * @return Retorna o tempo gasto para o processamento da avaliação.
      *
      */
-    boolean avaliarDesempenho(Map<String, Double> variaveis, String expressao, double resultadoEsperado) {
+    public double avaliar(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao) {
 
         try {
 
-            Expressao exp = adapter.getExpressaoFor(expressao);
+            long tempoTotal = 0;
 
-            long inicio = System.currentTimeMillis();
-            double resposta = exp.avalia(variaveis);
-            long termino = System.currentTimeMillis();
-            long tempoEmMilissegundo = termino - inicio;
+            for(int i = 0 ; i < qtdRepeticoes ; i++) {
 
-            if (Double.compare(resposta, resultadoEsperado) != 0) {
-                throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+                Expressao exp = adapter.getExpressaoFor(expressao);
+
+                long inicio = System.currentTimeMillis();
+                double resposta = exp.avaliar(variaveis);
+                long termino = System.currentTimeMillis();
+                long tempoEmMilissegundo = termino - inicio;
+                tempoTotal += tempoEmMilissegundo;
+
+                if (Math.abs(resposta - resultadoEsperado) < intervaloPrecisao) {
+                    throw new RespostaErradaException("A resposta do avaliador é diferente do resultado esperado!");
+                }
             }
 
-            return tempoEmMilissegundo;
+            return tempoTotal;
 
-        } catch (RespostaErradaException e) {
-            e.printStackTrace();
+        } catch (RuntimeException re) {
+            re.printStackTrace();
+        } catch (RespostaErradaException ree) {
+            ree.printStackTrace();
         }
 
-        return false;
+        return 0;
     }
 }
