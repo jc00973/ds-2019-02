@@ -6,15 +6,11 @@ o presente _benchmark_ também considera relevante outros aspectos, quem devem
 ser abordados em cinco módulos distintos:
 
 - Desempenho: Tempo gasto para avaliação de uma expressão.
-
 - Memória: Consumo de memória incorrido ao avaliar expressões.
-
 - Latência: Tempo gasto para pré-processamento de uma expressão, caso  exista esta opção, sem incluir o tempo consumido
  na avaliação da expressão.
- 
 - Carga: Tempo gasto para avaliação de diversas expressões, simulando a utilização extrema do avaliador para observar 
 o seu comportamento em situações de estresse.
-
 - Precisão: Se a precisão do resultado obtido pelo avaliador de expressões atende ao epsilon exigido como precisão. 
 
  ### Conceitos fundamentais
@@ -42,9 +38,7 @@ o seu comportamento em situações de estresse.
   ##### 04
   - Este último objeto recebe a mensagem _avaliacao_ cujo argumento é o conjunto de valores. O retorno é verificado
     com aquele do teste. 
-    
-  - Se o valor retornado difere do esperado, então o _benchmark_ é interrompido. 
-    
+  - Se o valor retornado difere do esperado, então o _benchmark_ é interrompido.    
   - Caso contrário, o tempo gasto será acumulado.  
 
 ### Validação da correção
