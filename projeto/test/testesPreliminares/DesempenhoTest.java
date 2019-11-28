@@ -1,4 +1,4 @@
-package projeto.test;
+package projeto.test.testesPreliminares;
 
 import avaliadores.RespostaErradaException;
 import org.junit.jupiter.api.Test;

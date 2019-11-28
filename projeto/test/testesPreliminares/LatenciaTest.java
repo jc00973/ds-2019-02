@@ -1,11 +1,11 @@
-package projeto.test;
+package projeto.test.testesPreliminares;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PrecisaoTest {
+public class LatenciaTest {
 
     Map<String, Double> variaveis = new HashMap<>();
     variaveis.put(x, 10);
