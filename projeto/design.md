@@ -17,7 +17,7 @@ o seu comportamento em situações de estresse.
 
 - Precisão: Se a precisão do resultado obtido pelo avaliador de expressões atende ao epsilon exigido como precisão.  
 
- ##### Fluxo principal de funcionamento:
+ #### Fluxo principal de funcionamento:
 
   ###### 01
    - A partir do nome da classe é obtida uma instância de _Adapter_. 
