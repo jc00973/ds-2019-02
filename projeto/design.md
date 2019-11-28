@@ -62,10 +62,16 @@ descrita abaixo:
 - Resultado. O valor da expressão. Por exemplo, para a expressão acima e o  valor de x igual a 10 (x=10), o resultado 
 é -14. Caso a expressão seja inválida, então o resultado deve ser a  sequência "ERRO". Por exemplo, se a  expressão 
 fornecida é "2*)", então o resultado deve ser "ERRO", pois não se trata de uma expressão válida. 
+
+- Exemplo de conteúdo do arquivo de validação da correção: 
   
   |   Expressão   |  Variáveis  |    Resultado    |
   |     :---:     |     :---:   |       :---:     |
   | 2*(3-x)       |      x=5    |         -4      |
+  | x+y/2         | x=2,y=10    |          7      |
+  | (x-z)*(y-x/z) | x=5,y=6,z=2 |         10,5    |
+  | x^x           |      x=3    |         27      |
+  | x^x/2         |      x=2    |         2       |
  
  
 
