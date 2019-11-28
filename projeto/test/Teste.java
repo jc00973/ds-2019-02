@@ -7,13 +7,15 @@
 
 package projeto.test;
 
+import java.util.Map;
+
 public class Teste {
 
     String expressao;
     Map<String, Double> variaveis;
     double resultado;
 
-    public Teste(String expressao, Map<String, Double> variaveis, double resultado) {
+    public Teste(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao) {
         this.expressao = expressao;
         this.variaveis = variaveis;
         this.resultado = resultado;
