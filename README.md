@@ -16,4 +16,4 @@ Universidade Federal de Goiás
 
 
 - [Requisitos](projeto/requisitos.md)
-- [Design detalhado](projeto/)
+- [Design detalhado](projeto/design.md)
