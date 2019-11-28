@@ -9,25 +9,31 @@
 
 package adaptador;
 
-public class FactoryAdapter {
+import java.util.Map;
 
-    Adapter adp;
+public class FactoryAdapter implements Adapter {
 
-    /**
-     * Cria uma instância do avaliador de expressões.
-     *
-     * @param nome
-     * @param jarFile
-     */
     public Adapter newInstance(String nomeDaClasse) {
-        Adapter adp = new Adapter(nome, jarFile);
-    }
+        Adapter adp = new FactoryAdapter();
 
-    /**
-     * Retorna a instância do adapter.
-     */
-    public Adapter getInstance() {
         return adp;
     }
 
+    @Override
+    public void preparar() {
+
+    }
+
+    /**
+     * A execução deste método inclui a preparação da expressão fornecida, antes que seja executada, e retorna a mesma
+     * preparada. No caso, como a implementação da interface não faz parte do escopo do projeto do benchmark e é sim
+     * uma decisão do Avaliador, o método aqui tem função ilustrativa apenas e por isso retorna null.
+     *
+     * @param expressao A expressão que será preparada.
+     *
+     * @return A expressão preparada para avaliação.
+     */
+    public Expressao getExpressaoFor(String expressao) {
+        return null;
+    }
 }
