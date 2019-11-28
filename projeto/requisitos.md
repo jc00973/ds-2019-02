@@ -27,5 +27,3 @@ Os requisitos preliminares são fornecidos abaixo.
 Ou seja, o _benchmark_ não conhece previamente as implementações destes módulos. 
 - R2 O benchmark deve definir uma interface a ser implementada por cada um dos módulos que avaliam expressões matemáticas e fará
 sua avaliação sobre o desempenho (comportamento observável) de cada módulo que implementa esta interface. 
-
->>>>>>> b042bd5e9d420b83ac5cc20ea8c41f3e9660b297
