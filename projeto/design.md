@@ -90,22 +90,24 @@ deverá ser executado pelo _benchmark_.
 O retorno será um relatório indicando o tempo gasto na execução de cada um dos testes (linha de teste do arquivo de 
 entrada).
 
-#### Expressao (interface)
-Esta interface deve possuir o método _avaliacao_.
+#### [Expressao] (src/adaptador/Expressao.java) (interface)
+Esta interface deve possuir o método _avaliar_. Essa interface deve ser implementada pelo Avaliador.
 
-#### Adapter (interface)
-Esta interface possui o método _Expressao getExpressaoPara(String expressao)_. A execução deste método inclui a 
-preparação da expressão fornecida, caso exista, antes que seja executada. 
+#### [Adapter] (src/adaptador/Adapter.java) (interface)
+Esta interface possui o método _Expressao getExpressaoFor(String expressao)_. A execução deste método inclui a 
+preparação da expressão fornecida, caso exista, antes que seja executada. Essa interface deve ser implementada pelo 
+Avaliador.
 
-#### AdapterFactory (classe)
+#### [FactoryAdapter] (src/adaptador/FactoryAdapter.java) (classe)
 Produz uma instância de _Adapter_ por meio do método _newInstance(String nomeDaClasse)_.
 
-#### Teste (classe)
+#### [Teste] (src/test/Teste.java) (classe)
 Uma instância desta classe possui uma expressão (String), um valor para cada uma das variáveis empregadas na expressão 
 e o resultado correspondente. 
 
-#### BancadaDeTestes implements Supplier<Teste>
+#### [BancadaDeTestes] (src/adaptador/Expressao.java) implements Supplier<Teste>
 O construtor recebe como argumento o nome de um arquivo CSV cujas três colunas são, nesta ordem: 
+
 (a) expressão; 
 (b) valores para as variáveis empregadas pela expressão (se for o caso); 
 (c) o resultado da avaliação da expressão com os valores fornecidos. 
