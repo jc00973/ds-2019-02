@@ -11,29 +11,20 @@ package adaptador;
 
 import java.util.Map;
 
-public class FactoryAdapter implements Adapter {
+public class FactoryAdapter {
 
-    public Adapter newInstance(String nomeDaClasse) {
-        Adapter adp = new FactoryAdapter();
+    Adapter adapter;
 
-        return adp;
+    public void  newInstance(String nomeDaClasse) {
+        adapter = new Adapter() {
+            @Override
+            public Expressao getExpressaoFor(String expressao) {
+                return null;
+            }
+        };
     }
 
-    @Override
-    public void preparar() {
-
-    }
-
-    /**
-     * A execução deste método inclui a preparação da expressão fornecida, antes que seja executada, e retorna a mesma
-     * preparada. No caso, como a implementação da interface não faz parte do escopo do projeto do benchmark e é sim
-     * uma decisão do Avaliador, o método aqui tem função ilustrativa apenas e por isso retorna null.
-     *
-     * @param expressao A expressão que será preparada.
-     *
-     * @return A expressão preparada para avaliação.
-     */
-    public Expressao getExpressaoFor(String expressao) {
-        return null;
+    public Adapter getAdapter() {
+        return adapter;
     }
 }
