@@ -28,10 +28,21 @@ citados acima, a quantidade de repetições também deve ser informada a cada caso 
 
 Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [exemplos de implementação](projeto/).
 
+O exemplo de implementação acima tem intuito apenas de ilustrar algumas implementações importantes que indicam a 
+estrutura do benchmark em si (como a utilização dos patterns Factory e Strategy), não devendo ser utilizada como 
+implementação final e também não ilustra toda a implementação que deve ser feita. 
+
+Por exemplo, na leitura e escrita de arquivos txt e na leitura de arquivos CSV, este design orienta como e onde devem
+ser implementadas, inclusive redireciona para materiais que podem auxiliar na implementação, mas não contém a 
+implementação completa em si, por isso ir além do intuito principal do design que é planejar e não construir em si.
+
+Neste documento, há diversos links para o exemplo de implementação conforme são citados.
+
  ### Conceitos fundamentais
 
   #### Avaliador de Expressão  
-  - Biblioteca ou serviço que implementa a avaliação de expressões matemáticas. 
+  - Biblioteca ou serviço que implementa a avaliação de expressões matemáticas. Não confudir com a interface _Avaliador-
+  , que está presente nesta proposta de design.
 
   #### Adaptador
   - Código responsável por requisitar a avaliação de expressões matemáticas pelo Avaliador. Deve ser produzido um 
@@ -58,7 +69,7 @@ Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [
 
 ### Validação da correção
 
-A validação da correção de uma implementação será fornecida por meio de um arquivo CSV contendo cinco colunas, na ordem 
+1) A validação da correção de uma implementação será fornecida por meio de um arquivo CSV contendo cinco colunas, na ordem 
 descrita abaixo:
 
 - Variáveis: Valores das variáveis a serem utilizadas na avaliação da expressão  serão fornecidas separadas por vírgula.
@@ -79,20 +90,18 @@ mínimo seja 1, caso contrário, a avaliadar não será executada e o valor retornad
 - Intervalo de precisão: Deve-se especificar qual o intervalo máximo tolerável de divergência entre a resposta dada pelo
 Avaliador de Expressão e o resultado esperado.
 
+2) O arquivo CSV deve ter as seguintes configurações:
+    
+        (a) Character set: Unicode (UTF-8)
+        (b) Field delimiter: {Tab}
+        (c) String delimiter: "
+        
+Clique [aqui](rascunho/arquivoTestes.csv) para acessar um arquivo CSV com o formato esperado.
 
-#### Exemplo do conteúdo do arquivo CSV com os casos de teste: 
+
+#### Exemplo do conteúdo dos casos de teste contidos no arquivo CSV: 
   
-<!--
   |   Expressão   |  Variáveis  |    Resultado    |    Repetições   |     Precisão    |
-  |     :---:     |     :---:   |       :---:     |       :---:     |       :---:     |
-  | 2*(3-x)       |      x=5    |         -4      |          1      |         0.1     |
-  | x+y/2         | x=2,y=10    |          7      |          3      |         0.1     |
-  | (x-z)*(y-x/z) | x=5,y=6,z=2 |         10,5    |          1      |         0.1     |
-  | x^x           |      x=3    |         27      |          1      |         0.1     |
-  | x^x/2         |      x=2    |         2       |          500    |         0.1     |
---> 
-
-  |               |             |                 |                 |                 |
   |     :---:     |     :---:   |       :---:     |       :---:     |       :---:     |
   | 2*(3-x)       |      x=5    |         -4      |          1      |         0.1     |
   | x+y/2         | x=2,y=10    |          7      |          3      |         0.1     |
@@ -118,10 +127,13 @@ memória e latência), conforme o diagrama de classes abaixo:
 Ponto de entrada para execução do _benchmark_. A classe deve ser implementada seguindo o fluxo esperado abaixo:
 
 1) Esta classe recebe como entrada um arquivo txt indicando o que deverá ser executado pelo _benchmark_. Cada uma 
-das informações abaixo deve contar em uma linha distinta.
+das informações abaixo deve contar em uma linha distinta. A leitura e escritas de arquivo deve ser implementada utilizan-
+o package [java.io](https://docs.oracle.com/javase/7/docs/api/java/io/package-summary.html), utilizando suas classes
+_FileReader_, _FileWriter_, _BufferedReader_, _BufferedWriter_ e _IOException_. Pode-se realizar a implementação 
+conforme as orientações nesse [link](https://www.devmedia.com.br/leitura-e-escrita-de-arquivos-de-texto-em-java/25529).
 
 - Nome da classe que implementa o adaptador (String nomeDaClasse)
-- Caminho do diretório contendo o nome do arquivo CSV que contém os testes (String caminhoArquivoCsv;).
+- Caminho do diretório contendo o nome do arquivo CSV que contém os testes (String caminhoArquivoCsv).
 - Código de um dos três tipos de avaliação desejado (String codigoTipoAvaliacao):
     (1) Desempenho;
     (2) Consumo de memória;
@@ -136,7 +148,9 @@ das informações abaixo deve contar em uma linha distinta.
         /home/argos/Desktop/        
         
 2) Em seguida, a classe Aplicativo deverá acessar o arquivo.csv e converter cada linha em parâmetros que serão enviados
-para _BancadaDeTestes_ para que ela crie e armazene uma instância de _Teste_. 
+para _BancadaDeTestes_ para que ela crie e armazene uma instância de _Teste_. A implemetação da leitura de arquivos csv 
+pode ser realizada conforme as orientação encontradas nesse 
+[link](https://dicasdejava.com.br/como-ler-arquivos-csv-em-java/).
 
 3) Ao final das instanciações dos testes, a classe _BancadaDeTestes_ retorna um List<Teste> testes.
 
@@ -150,7 +164,8 @@ acima. No final de cada utilização do método avaliar(), ela retorna o resultado 
 arquivo.csv.
 
 7) Ao final dos acessos ao método avalia(), a lista de resultados é convertida em um arquivo relatorioAvaliacao.txt,
-que é escrito no caminho informado pelo Avaliador de Expressão.
+que é escrito no caminho informado pelo Avaliador de Expressão. A conversão dos resultados em texto deve utilizar o 
+mesmo package implementado para leitura do arquivo de entrada.
 
 Detalhes do relatorioAvaliacao.txt: O resultado de cada teste é dado na mesma linha em que o teste aparece no arquivo 
 CSV. Este resultado deve indicar, respectivamente ao tipo de avaliação:
@@ -201,13 +216,23 @@ preparação da expressão fornecida, caso exista, antes que seja executada. Essa i
 Avaliador de Expressão.
 
 #### [FactoryAdapter](src/adaptador/FactoryAdapter.java) (classe)
-Produz uma instância de _Adapter_ por meio do método _newInstance(String nomeDaClasse)_.
+- Produz uma instância de _Adapter_ por meio do método _newInstance(String nomeDaClasse)_. Ao necessitar utilizar uma
+instância de Adapter, deve-se: 
 
+    ````java
+    Adapter adapter = factoryAdapter.newInstance(nomeDaClasse);
+    ```` 
+- Após isso, será possível instanciar uma Expressao:
+
+    ````java
+    Expressao exp = adapter.getExpressaoFor(expressao);
+    ```` 
+  
 #### [Teste](src/test/Teste.java) (classe)
 Uma instância desta classe possui uma expressão (String), um valor para cada uma das variáveis empregadas na expressão, 
 o resultado correspondente, a quantidade de repetições e o intervalo de precisão exigido. 
 
-#### [BancadaDeTestes](src/test/BancadaDeTestes.java) implements Supplier<Teste>
+#### [BancadaDeTestes](src/test/BancadaDeTestes.java)
 O construtor recebe como argumento o nome de um arquivo CSV cujas cinco colunas são, nesta ordem: 
 
  (a) Variáveis.
@@ -216,10 +241,18 @@ O construtor recebe como argumento o nome de um arquivo CSV cujas cinco colunas 
  (d) Quantidade de repetições.
  (e) Intervalo de precisão.
 
-O método _get_ será empregado para recuperar, um por um, na ordem em que aparecem no arquivo CSV, os testes contidos 
-neste arquivo. 
+O método _getTestes()_ deve ser implementado. Ele será utilizado pelo _Aplicativo_ para recuperar os testes
+instanciados, um por um, na ordem em que aparecem no arquivo CSV.
 
-#### [AvaliadorConsumoMemoria](src/avaliadores/ConsumoMemoria.java) (classe)
+#### [Avaliador](src/avaliadores/Avaliador.java) (interface)
+- A interface principal do Strategy pattern, que será implementada pelas três classes abaixo. Esta interface contém
+um único método:
+
+    ````java
+    double avaliar(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao, String nomeDaClasse);
+    ```` 
+
+#### [ConsumoMemoria](src/avaliadores/ConsumoMemoria.java) (classe)
 - Classe que verifica o consumo de memória da implementação do Avaliador de Expressão durante a avaliação de uma expressão. A
 ferramenta utilizada na verificação do consumo de memória são as funções _totalMemory()_ e _freeMemory()_, ambas da 
 classe [Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html) (clique para abrir a documentação da 
@@ -234,7 +267,7 @@ classe). As funções podem ser usadas como abaixo:
     long memoriaUtilizada = memoriaUtilizadaDepois - memoriaUtilizadaAntes;
     ```` 
 
-#### [AvaliadorDesempenho](src/avaliadores/Desempenho.java) (classe)
+#### [Desempenho](src/avaliadores/Desempenho.java) (classe)
 - Classe que avalia o desempenho da implementação do Avaliador de Expressão durante a avaliação de uma expressão. O desempenho 
 consiste no intervalo de tempo entre o início e o final da avaliação a expressão, e só é considerado caso a resposta
 seja compatível com o resultado esperado. A ferramenta utilizada na avaliação será o método _CurrentTimeMillis()_, da
@@ -248,22 +281,17 @@ classe), conforme o exemplo abaixo:
     long tempoEmMilissegundo = termino - inicio;
     ````
 
-#### [AvaliadorLatencia](src/avaliadores/Latencia.java) (classe)
-- Classe que avalia a latência do Avaliador de Expressão antes a avaliação de uma expressão. A latência se caracteriza como o período
-de tempo gasto na execução do método _preparar()_ que deve estar presente na interface Adapter. A forma de verificação
-desse intervalo de tempo também pode ser o método _CurrentTimeMillis()_, da classe System.
+#### [Latencia](src/avaliadores/Latencia.java) (classe)
+- Classe que avalia a latência do Avaliador de Expressão antes a avaliação de uma expressão. A latência se caracteriza 
+como o período de tempo gasto na execução do método getExpressaoFor() que deve estar presente na interface Adapter. 
+A forma de verificação desse intervalo de tempo também pode ser o método _CurrentTimeMillis()_, da classe System, 
+conforme o exemplo abaixo (também presente no exemplo de implementação):
 
-<!--
-
-#### Cenários
-
-##### 1 Constante 1
-A expressão formada apenas deste dígito 1 é executada 10, 100, 1000, 10.000, 100.000 e 1.000.000 de vezes, produzindo 
-seis valores. 
-
-##### 2 Constante -12.45678
-
-Idem do anterior. 
-
--->
+    ````java
+    long inicio = System.currentTimeMillis();
+    Expressao exp = factoryAdapter.getAdapter().getExpressaoFor(expressao);
+    long termino = System.currentTimeMillis();
+    long tempoEmMilissegundo = termino - inicio;
+    ````
+    
 
