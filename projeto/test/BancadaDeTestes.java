@@ -7,9 +7,18 @@
 
 package projeto.test;
 
-public class BancadaDeTestes implements Supplier {
+import java.util.Map;
 
-    public BancadaDeTestes() {
+public class BancadaDeTestes {
+
+    List<Teste> testes;
+
+    public void insereTeste(String expressao, Map<String, Double> variaveis, double resultado, int qtdRepeticoes, double intervaloPrecisao) {
+        Teste teste = new Teste(expressao, variaveis, resultado, qtdRepeticoes, intervaloPrecisao);
+        testes.add(teste);
     }
 
+    public List<Teste> getTestes() {
+        return testes;
+    }
 }
