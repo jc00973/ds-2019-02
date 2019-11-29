@@ -15,17 +15,7 @@ import java.util.Map;
 
 public class Latencia implements Avaliador {
 
-    private Adapter adapter;
     private FactoryAdapter factoryAdapter;
-
-    /**
-     * O construtor instancia o adaptador através de uma factory.
-     */
-    Latencia() {
-
-        adapter = factoryAdapter.newInstance("avaliador");
-
-    }
 
     /**
      *
@@ -42,10 +32,8 @@ public class Latencia implements Avaliador {
 
         try {
 
-            Expressao exp = adapter.getExpressaoFor(expressao);
-
             long inicio = System.currentTimeMillis();
-            adapter.preparar();
+            Expressao exp = factoryAdapter.getAdapter().getExpressaoFor(expressao);
             long termino = System.currentTimeMillis();
             long tempoEmMilissegundo = termino - inicio;
 

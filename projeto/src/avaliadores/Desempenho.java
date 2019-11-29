@@ -15,17 +15,7 @@ import java.util.Map;
 
 public class Desempenho implements Avaliador {
 
-    private Adapter adapter;
     private FactoryAdapter factoryAdapter;
-
-    /**
-     * O construtor instancia o adaptador através de uma factory.
-     */
-    Desempenho() {
-
-        adapter = factoryAdapter.newInstance("avaliador");
-
-    }
 
     /**
      *
@@ -46,7 +36,7 @@ public class Desempenho implements Avaliador {
 
             for(int i = 0 ; i < qtdRepeticoes ; i++) {
 
-                Expressao exp = adapter.getExpressaoFor(expressao);
+                Expressao exp = factoryAdapter.getAdapter().getExpressaoFor(expressao);
 
                 long inicio = System.currentTimeMillis();
                 double resposta = exp.avaliar(variaveis);

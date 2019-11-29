@@ -30,12 +30,12 @@ Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [
 
  ### Conceitos fundamentais
 
-  #### Avaliador  
+  #### Avaliador de Expressão  
   - Biblioteca ou serviço que implementa a avaliação de expressões matemáticas. 
 
   #### Adaptador
   - Código responsável por requisitar a avaliação de expressões matemáticas pelo Avaliador. Deve ser produzido um 
-  adaptador para cada Avaliador. 
+  adaptador para cada Avaliador de Expressão. 
 
  ### Fluxo principal de funcionamento:
 
@@ -43,7 +43,7 @@ Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [
    - A partir do nome da classe é obtida uma instância de _Adapter_. 
     
   ##### 02   
-   - Para cada linha de teste do arquivo de entrada, um instância de _BancadaDeTestes_ é criada. 
+   - Para cada linha de teste do arquivo de entrada, um instância de _Teste_ é criada em _BancadaDeTestes_. 
     
   ##### 03
    - Para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
@@ -77,7 +77,7 @@ mínimo seja 1, caso contrário, a avaliadar não será executada e o valor retornad
 -1, que indica que a avaliação não foi executada.
 
 - Intervalo de precisão: Deve-se especificar qual o intervalo máximo tolerável de divergência entre a resposta dada pelo
-avaliador e o resultado esperado.
+Avaliador de Expressão e o resultado esperado.
 
 
 #### Exemplo do conteúdo do arquivo CSV com os casos de teste: 
@@ -110,28 +110,53 @@ memória e latência), conforme o diagrama de classes abaixo:
 
 ![Diagrama de classes Strategy](diagramas/png/strategy.png)
 
-#### [Aplicativo](src/Aplicativo.java) (classe)
-Ponto de entrada para execução do _benchmark_. Este aplicativo recebe como entrada um arquivo txt indicando o que 
-deverá ser executado pelo _benchmark_. Cada uma das informações abaixo deve contar em uma linha distinta.
+- O benchmark deve ser implementado de acordo com o diagrama de sequência e demais instruções abaixo:
 
-- Nome da classe que implementa o adaptador
-- Caminho/nome de arquivo CSV contendo testes (formato do arquivo abordado anteriormente).
-- Código de um dos três tipos de avaliação desejado:
+![Diagrama de sequência](diagramas/png/sequencia.png)
+
+#### [Aplicativo](src/Aplicativo.java) (classe)
+Ponto de entrada para execução do _benchmark_. A classe deve ser implementada seguindo o fluxo esperado abaixo:
+
+1) Esta classe recebe como entrada um arquivo txt indicando o que deverá ser executado pelo _benchmark_. Cada uma 
+das informações abaixo deve contar em uma linha distinta.
+
+- Nome da classe que implementa o adaptador (String nomeDaClasse)
+- Caminho do diretório contendo o nome do arquivo CSV que contém os testes (String caminhoArquivoCsv;).
+- Código de um dos três tipos de avaliação desejado (String codigoTipoAvaliacao):
     (1) Desempenho;
     (2) Consumo de memória;
-    (3) Latência
-    
+    (3) Latência.
+- Caminho do diretório onde o relatorioResultado.txt deve ser escrito (String caminhoRelatorioResultado).
+
 ##### Exemplo de arquivo txt de entrada:
         
-        "Avaliador"
+        /home/argos/Desktop/AvaliadorMatematico/src/AdapterInstantiator.java
         testes.csv
-        3        
+        3
+        /home/argos/Desktop/        
+        
+2) Em seguida, a classe Aplicativo deverá acessar o arquivo.csv e converter cada linha em parâmetros que serão enviados
+para _BancadaDeTestes_ para que ela crie e armazene uma instância de _Teste_. 
 
-O retorno será um relatório, que pode também ser txt, com o resultado de cada teste dado na mesma linha em que o teste 
-aparece no arquivo CSV. O resultado deve indicar, respectivamente ao tipo de avaliação:
+3) Ao final das instanciações dos testes, a classe _BancadaDeTestes_ retorna um List<Teste> testes.
+
+4) O Aplicativo então, de acordo com o codigoTipoAvaliacao, acessa a implementação da interface _Avaliador_ 
+correspondente, e executa o método avaliar() da implementação.
+
+5) A implementação do _Avaliador_ irá realizar as operações de instanciação conforme o diagrama de sequências contido
+acima. No final de cada utilização do método avaliar(), ela retorna o resultado da avaliação.
+
+6) Cada resultado retornado é armazenado na List<String> resultados, indexando os resultados na ordem que aparecem no
+arquivo.csv.
+
+7) Ao final dos acessos ao método avalia(), a lista de resultados é convertida em um arquivo relatorioAvaliacao.txt,
+que é escrito no caminho informado pelo Avaliador de Expressão.
+
+Detalhes do relatorioAvaliacao.txt: O resultado de cada teste é dado na mesma linha em que o teste aparece no arquivo 
+CSV. Este resultado deve indicar, respectivamente ao tipo de avaliação:
     (1) Desempenho: o tempo gasto na execução de cada um dos testes (linha de teste do arquivo de entrada);
     (2) Consumo de memória: a memória gasta na execução de cada um dos testes;
-    (3) Latência: a latência (tempo de execução do método preparar) antes da execução de cada teste.
+    (3) Latência: a latência (tempo de execução do método getExpressaoFor) antes da execução de cada teste.
     
 ##### Exemplo de arquivo txt de saída no caso de teste de desempenho:
         
@@ -155,7 +180,7 @@ aparece no arquivo CSV. O resultado deve indicar, respectivamente ao tipo de ava
         5. 451 ms
         6. 363 ms   
         
-##### Exemplo de arquivo txt de saída no caso de teste de desempenho:
+##### Exemplo de arquivo txt de saída no caso de teste de consumo de memória:
         
         TESTE DE DESEMPENHO
         
@@ -168,12 +193,12 @@ aparece no arquivo CSV. O resultado deve indicar, respectivamente ao tipo de ava
         
 
 #### [Expressao](src/adaptador/Expressao.java) (interface)
-Esta interface deve possuir o método _avaliar_. Essa interface deve ser implementada pelo Avaliador.
+Esta interface deve possuir o método _avaliar_. Essa interface deve ser implementada pelo Avaliador de Expressão.
 
 #### [Adapter](src/adaptador/Adapter.java) (interface)
 Esta interface possui o método _Expressao getExpressaoFor(String expressao)_. A execução deste método inclui a 
 preparação da expressão fornecida, caso exista, antes que seja executada. Essa interface deve ser implementada pelo 
-Avaliador.
+Avaliador de Expressão.
 
 #### [FactoryAdapter](src/adaptador/FactoryAdapter.java) (classe)
 Produz uma instância de _Adapter_ por meio do método _newInstance(String nomeDaClasse)_.
@@ -195,7 +220,7 @@ O método _get_ será empregado para recuperar, um por um, na ordem em que aparece
 neste arquivo. 
 
 #### [AvaliadorConsumoMemoria](src/avaliadores/ConsumoMemoria.java) (classe)
-- Classe que verifica o consumo de memória da implementação do Avaliador durante a avaliação de uma expressão. A
+- Classe que verifica o consumo de memória da implementação do Avaliador de Expressão durante a avaliação de uma expressão. A
 ferramenta utilizada na verificação do consumo de memória são as funções _totalMemory()_ e _freeMemory()_, ambas da 
 classe [Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html) (clique para abrir a documentação da 
 classe). As funções podem ser usadas como abaixo:
@@ -210,7 +235,7 @@ classe). As funções podem ser usadas como abaixo:
     ```` 
 
 #### [AvaliadorDesempenho](src/avaliadores/Desempenho.java) (classe)
-- Classe que avalia o desempenho da implementação do Avaliador durante a avaliação de uma expressão. O desempenho 
+- Classe que avalia o desempenho da implementação do Avaliador de Expressão durante a avaliação de uma expressão. O desempenho 
 consiste no intervalo de tempo entre o início e o final da avaliação a expressão, e só é considerado caso a resposta
 seja compatível com o resultado esperado. A ferramenta utilizada na avaliação será o método _CurrentTimeMillis()_, da
 classe [System](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html) (clique para abrir a documentação da 
@@ -224,7 +249,7 @@ classe), conforme o exemplo abaixo:
     ````
 
 #### [AvaliadorLatencia](src/avaliadores/Latencia.java) (classe)
-- Classe que avalia a latência do Avaliador antes a avaliação de uma expressão. A latência se caracteriza como o período
+- Classe que avalia a latência do Avaliador de Expressão antes a avaliação de uma expressão. A latência se caracteriza como o período
 de tempo gasto na execução do método _preparar()_ que deve estar presente na interface Adapter. A forma de verificação
 desse intervalo de tempo também pode ser o método _CurrentTimeMillis()_, da classe System.
 

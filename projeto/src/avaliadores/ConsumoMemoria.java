@@ -15,17 +15,7 @@ import java.util.Map;
 
 public class ConsumoMemoria implements Avaliador {
 
-    private Adapter adapter;
     private FactoryAdapter factoryAdapter;
-
-    /**
-     * O construtor instancia o adaptador através de uma factory.
-     */
-    ConsumoMemoria() {
-
-        adapter = factoryAdapter.newInstance("avaliador");
-
-    }
 
     /**
      *
@@ -47,7 +37,7 @@ public class ConsumoMemoria implements Avaliador {
 
             for(int i = 0 ; i < qtdRepeticoes ; i++) {
 
-                Expressao exp = adapter.getExpressaoFor(expressao);
+                Expressao exp = factoryAdapter.getAdapter().getExpressaoFor(expressao);
                 Runtime runtime = Runtime.getRuntime();
 
                 long memoriaUtilizadaAntes = runtime.totalMemory() - runtime.freeMemory();
