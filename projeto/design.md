@@ -26,7 +26,8 @@ precisão informado.
 citados acima, a quantidade de repetições também deve ser informada a cada caso de teste inserido. Com isso, o intuito
 é dar autonomia ao Avaliador devido a possibilidade de personalizar a avaliação da carga.
 
-- Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [exemplos de implementação](../).
+- Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com 
+[exemplos de implementação](https://github.com/jc00973/ds-2019-02/tree/master/projeto).
 
 - O exemplo de implementação acima tem intuito apenas de ilustrar algumas implementações importantes que indicam a 
 estrutura do benchmark em si (como a utilização dos patterns Factory e Strategy), não devendo ser utilizada como 
