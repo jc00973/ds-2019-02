@@ -14,16 +14,14 @@ import java.util.Map;
 public interface Adapter {
 
     /**
-     * Pretende-se que tudo que for necessário de ser executado antes da avaliação da expressão para que ela possa ser
-     * executada, seja executado dentro deste método, para então viabilizar a avaliação da latência (ou tempo de
-     * preparação).
+     * A execução deste método inclui a preparação da expressão fornecida, antes que seja executada, e retorna a mesma
+     * preparada. No caso, como a implementação da interface não faz parte do escopo do projeto do benchmark e é sim
+     * uma decisão do Avaliador, o método aqui tem função ilustrativa apenas e por isso retorna null. O tempo de
+     * execução deste método que determina a latência.
      *
-     */
-    public void preparar();
-
-    /**
-     *  O utilizador do benchmark deverá implementar a forma que irá instanciar uma expressão no benchmark de maneira que
-     *  essa instância possa ser utilizada como parâmetro no projeto que será avaliado.
+     * @param expressao A expressão que será preparada.
+     *
+     * @return A expressão preparada para avaliação.
      */
     public Expressao getExpressaoFor(String expressao);
 
