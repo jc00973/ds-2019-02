@@ -1,47 +1,47 @@
 
 # Design detalhado: Benchmark para avaliadores de expressões matemáticas
 
-Além de permitir validar uma implementação de um avaliador de expressões, 
+- Além de permitir validar uma implementação de um avaliador de expressões, 
 o presente _benchmark_ também considera relevante outros aspectos:
 
-- Desempenho: Tempo gasto para avaliação de uma expressão.
-- Memória: Consumo de memória incorrido ao avaliar expressões.
-- Latência: Tempo gasto para pré-processamento de uma expressão, caso  exista esta opção, sem incluir o tempo consumido
- na avaliação da expressão.
-- Carga: Tempo gasto para avaliação de diversas expressões, simulando a utilização extrema do avaliador para observar 
-o seu comportamento em situações de estresse.
-- Precisão: Se a precisão do resultado obtido pelo avaliador de expressões atende ao epsilon exigido como precisão. 
+    - Desempenho: Tempo gasto para avaliação de uma expressão.
+    - Memória: Consumo de memória incorrido ao avaliar expressões.
+    - Latência: Tempo gasto para pré-processamento de uma expressão, caso  exista esta opção, sem incluir o tempo consumido
+     na avaliação da expressão.
+    - Carga: Tempo gasto para avaliação de diversas expressões, simulando a utilização extrema do avaliador para observar 
+    o seu comportamento em situações de estresse.
+    - Precisão: Se a precisão do resultado obtido pelo avaliador de expressões atende ao epsilon exigido como precisão. 
 
-Este benchmark foi pensado para abordar os cincos critérios de avaliação por meio do padrão de projeto Strategy, havendo
+- Este benchmark foi pensado para abordar os cincos critérios de avaliação por meio do padrão de projeto Strategy, havendo
 uma interface _Avaliador_ e as três classes que a implementam: _ConsumoMemoria_, _Desempenho_ e _Latencia_.
 
-Os critérios de carga e precisão foram definidos como preliminares a qualquer um dos três tipos de critérios de avaliação
+- Os critérios de carga e precisão foram definidos como preliminares a qualquer um dos três tipos de critérios de avaliação
 acima. 
 
-A precisão é abordada como um parâmetro que deve ser informado juntamente com a própria expressão, os valores de
+- A precisão é abordada como um parâmetro que deve ser informado juntamente com a própria expressão, os valores de
 suas variáveis e o resultado. A comparação do resultado obtido com o esperado é realizada considerando o intervalo de 
 precisão informado.
 
-O critério de carga também é abordado de maneira integrada aos demais critérios. Justamente com os quatro parâmetros
+- O critério de carga também é abordado de maneira integrada aos demais critérios. Justamente com os quatro parâmetros
 citados acima, a quantidade de repetições também deve ser informada a cada caso de teste inserido. Com isso, o intuito
 é dar autonomia ao Avaliador devido a possibilidade de personalizar a avaliação da carga.
 
-Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [exemplos de implementação](projeto/).
+- Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com [exemplos de implementação](projeto/).
 
-O exemplo de implementação acima tem intuito apenas de ilustrar algumas implementações importantes que indicam a 
+- O exemplo de implementação acima tem intuito apenas de ilustrar algumas implementações importantes que indicam a 
 estrutura do benchmark em si (como a utilização dos patterns Factory e Strategy), não devendo ser utilizada como 
 implementação final e também não ilustra toda a implementação que deve ser feita. 
 
-Por exemplo, na leitura e escrita de arquivos txt e na leitura de arquivos CSV, este design orienta como e onde devem
+- Por exemplo, na leitura e escrita de arquivos txt e na leitura de arquivos CSV, este design orienta como e onde devem
 ser implementadas, inclusive redireciona para materiais que podem auxiliar na implementação, mas não contém a 
 implementação completa em si, por isso ir além do intuito principal do design que é planejar e não construir em si.
 
-Neste documento, há diversos links para o exemplo de implementação conforme são citados.
+- Neste documento, há diversos links para o exemplo de implementação conforme são citados.
 
  ### Conceitos fundamentais
 
   #### Avaliador de Expressão  
-  - Biblioteca ou serviço que implementa a avaliação de expressões matemáticas. Não confudir com a interface _Avaliador-
+  - Biblioteca ou serviço que implementa a avaliação de expressões matemáticas. Não confudir com a interface _Avaliador_
   , que está presente nesta proposta de design.
 
   #### Adaptador
@@ -57,7 +57,7 @@ Neste documento, há diversos links para o exemplo de implementação conforme são 
    - Para cada linha de teste do arquivo de entrada, um instância de _Teste_ é criada em _BancadaDeTestes_. 
     
   ##### 03
-   - Para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _get_, 
+   - Para cada _Teste_ retornado pela instância de _BancadaDeTestes_, por meio do método _getTestes_, 
    obtém-se a expressão correspondente, a partir da qual, por meio da instância de _Adapter_ obtém-se a instância de 
    _Expressao_ correspondente. 
     
@@ -72,23 +72,23 @@ Neste documento, há diversos links para o exemplo de implementação conforme são 
 1) A validação da correção de uma implementação será fornecida por meio de um arquivo CSV contendo cinco colunas, na ordem 
 descrita abaixo:
 
-- Variáveis: Valores das variáveis a serem utilizadas na avaliação da expressão  serão fornecidas separadas por vírgula.
- Por exemplo, para a expressão acima podemos ter x=10. Se a expressão faz uso de mais de uma variável, então os valores
- devem ser separados por vírgula. Por exemplo, para a expressão "a + b", os valores das variáveis podem ser 
- "a=1,b=3.4", por exemplo.
- 
-- Expressão: Por exemplo, 2*(3-x).
-
-- Resultado: O valor da expressão. Por exemplo, para a expressão acima e o  valor de x igual a 10 (x=10), o resultado 
-é -14. Caso a expressão seja inválida, então o resultado deve ser a  sequência "ERRO". Por exemplo, se a  expressão 
-fornecida é "2*)", então o resultado deve ser "ERRO", pois não se trata de uma expressão válida. 
-
-- Quantidade de repetições: A quantidade de vezes que o mesmo caso de teste deve ser efetuado. É necessário que o valor
-mínimo seja 1, caso contrário, a avaliadar não será executada e o valor retornado para o teste em questão será 
--1, que indica que a avaliação não foi executada.
-
-- Intervalo de precisão: Deve-se especificar qual o intervalo máximo tolerável de divergência entre a resposta dada pelo
-Avaliador de Expressão e o resultado esperado.
+    - Variáveis: Valores das variáveis a serem utilizadas na avaliação da expressão  serão fornecidas separadas por vírgula.
+     Por exemplo, para a expressão acima podemos ter x=10. Se a expressão faz uso de mais de uma variável, então os valores
+     devem ser separados por vírgula. Por exemplo, para a expressão "a + b", os valores das variáveis podem ser 
+     "a=1,b=3.4", por exemplo.
+     
+    - Expressão: Por exemplo, 2*(3-x).
+    
+    - Resultado: O valor da expressão. Por exemplo, para a expressão acima e o  valor de x igual a 10 (x=10), o resultado 
+    é -14. Caso a expressão seja inválida, então o resultado deve ser a  sequência "ERRO". Por exemplo, se a  expressão 
+    fornecida é "2*)", então o resultado deve ser "ERRO", pois não se trata de uma expressão válida. 
+    
+    - Quantidade de repetições: A quantidade de vezes que o mesmo caso de teste deve ser efetuado. É necessário que o valor
+    mínimo seja 1, caso contrário, a avaliadar não será executada e o valor retornado para o teste em questão será 
+    -1, que indica que a avaliação não foi executada.
+    
+    - Intervalo de precisão: Deve-se especificar qual o intervalo máximo tolerável de divergência entre a resposta dada pelo
+    Avaliador de Expressão e o resultado esperado.
 
 2) O arquivo CSV deve ter as seguintes configurações:
     
@@ -132,13 +132,13 @@ o package [java.io](https://docs.oracle.com/javase/7/docs/api/java/io/package-su
 _FileReader_, _FileWriter_, _BufferedReader_, _BufferedWriter_ e _IOException_. Pode-se realizar a implementação 
 conforme as orientações nesse [link](https://www.devmedia.com.br/leitura-e-escrita-de-arquivos-de-texto-em-java/25529).
 
-- Nome da classe que implementa o adaptador (String nomeDaClasse)
-- Caminho do diretório contendo o nome do arquivo CSV que contém os testes (String caminhoArquivoCsv).
-- Código de um dos três tipos de avaliação desejado (String codigoTipoAvaliacao):
-    (1) Desempenho;
-    (2) Consumo de memória;
-    (3) Latência.
-- Caminho do diretório onde o relatorioResultado.txt deve ser escrito (String caminhoRelatorioResultado).
+    - Nome da classe que implementa o adaptador (String nomeDaClasse)
+    - Caminho do diretório contendo o nome do arquivo CSV que contém os testes (String caminhoArquivoCsv).
+    - Código de um dos três tipos de avaliação desejado (String codigoTipoAvaliacao):
+        (1) Desempenho;
+        (2) Consumo de memória;
+        (3) Latência.
+    - Caminho do diretório onde o relatorioResultado.txt deve ser escrito (String caminhoRelatorioResultado).
 
 ##### Exemplo de arquivo txt de entrada:
         
@@ -167,7 +167,7 @@ arquivo.csv.
 que é escrito no caminho informado pelo Avaliador de Expressão. A conversão dos resultados em texto deve utilizar o 
 mesmo package implementado para leitura do arquivo de entrada.
 
-Detalhes do relatorioAvaliacao.txt: O resultado de cada teste é dado na mesma linha em que o teste aparece no arquivo 
+- Detalhes do relatorioAvaliacao.txt: O resultado de cada teste é dado na mesma linha em que o teste aparece no arquivo 
 CSV. Este resultado deve indicar, respectivamente ao tipo de avaliação:
     (1) Desempenho: o tempo gasto na execução de cada um dos testes (linha de teste do arquivo de entrada);
     (2) Consumo de memória: a memória gasta na execução de cada um dos testes;
@@ -289,7 +289,7 @@ conforme o exemplo abaixo (também presente no exemplo de implementação):
 
     ````java
     long inicio = System.currentTimeMillis();
-    Expressao exp = factoryAdapter.getAdapter().getExpressaoFor(expressao);
+    Expressao exp = adapter.getExpressaoFor(expressao);
     long termino = System.currentTimeMillis();
     long tempoEmMilissegundo = termino - inicio;
     ````
