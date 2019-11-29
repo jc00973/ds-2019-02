@@ -9,22 +9,17 @@
 
 package adaptador;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class FactoryAdapter {
 
-    Adapter adapter;
-
-    public void  newInstance(String nomeDaClasse) {
-        adapter = new Adapter() {
-            @Override
-            public Expressao getExpressaoFor(String expressao) {
-                return null;
-            }
-        };
+    public static <T> T newInstance(String nomeDaClasse)
+            throws ClassNotFoundException, InstantiationException,
+            IllegalAccessException, InvocationTargetException,
+            NoSuchMethodException {
+        Class<?> classe = Class.forName(nomeDaClasse);
+        return (T) classe.getDeclaredConstructor().newInstance();
     }
 
-    public Adapter getAdapter() {
-        return adapter;
-    }
 }

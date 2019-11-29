@@ -11,6 +11,7 @@ import adaptador.Adapter;
 import adaptador.FactoryAdapter;
 import adaptador.Expressao;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class Desempenho implements Avaliador {
@@ -18,17 +19,20 @@ public class Desempenho implements Avaliador {
     private FactoryAdapter factoryAdapter;
 
     /**
-     *
-     * O método recebe os valores das variáveis, a expressão e o resultado esperado da avaliação da expressão.
+     * O método recebe os parâmetros e realizará a avaliação de desempenho.
      *
      * @param variaveis Corresponde a pares de variáveis com seus respectivos valores.
      * @param expressao A expressão que será avaliada.
-     * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
+     * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta
+     * @param qtdRepeticoes A quantidade de vezes que o teste deve ser executado.
+     * @param intervaloPrecisao O intervalo de precisão para a resposta ser considerada correta.
+     * @param nomeDaClasse O nome da classe do adaptador utilizado pela factory, implementado pelo Avaliador
+     *                     de Expressão.
      *
      * @return Retorna o tempo gasto para o processamento da avaliação.
      *
      */
-    public double avaliar(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao) {
+    public double avaliar(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao, String nomeDaClasse) {
 
         try {
 
@@ -36,7 +40,8 @@ public class Desempenho implements Avaliador {
 
             for(int i = 0 ; i < qtdRepeticoes ; i++) {
 
-                Expressao exp = factoryAdapter.getAdapter().getExpressaoFor(expressao);
+                Adapter adapter = factoryAdapter.newInstance(nomeDaClasse);
+                Expressao exp = adapter.getExpressaoFor(expressao);
 
                 long inicio = System.currentTimeMillis();
                 double resposta = exp.avaliar(variaveis);
@@ -55,6 +60,16 @@ public class Desempenho implements Avaliador {
             re.printStackTrace();
         } catch (RespostaErradaException ree) {
             ree.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
 
         return 0;

@@ -11,6 +11,7 @@ import adaptador.Adapter;
 import adaptador.FactoryAdapter;
 import adaptador.Expressao;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 public class Latencia implements Avaliador {
@@ -18,22 +19,27 @@ public class Latencia implements Avaliador {
     private FactoryAdapter factoryAdapter;
 
     /**
-     *
-     * O método recebe os valores das variáveis, a expressão e o resultado esperado da avaliação da expressão.
+     * O método recebe os parâmetros e realizará a avaliação do tempo de execução do getExpressaoFor().
      *
      * @param variaveis Corresponde a pares de variáveis com seus respectivos valores.
      * @param expressao A expressão que será avaliada.
-     * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta.
+     * @param resultadoEsperado O resultado esperado pelo benchmark para que a avaliação seja considerada correta
+     * @param qtdRepeticoes A quantidade de vezes que o teste deve ser executado.
+     * @param intervaloPrecisao O intervalo de precisão para a resposta ser considerada correta.
+     * @param nomeDaClasse O nome da classe do adaptador utilizado pela factory, implementado pelo Avaliador
+     *                     de Expressão.
      *
-     * @return Retorna o tempo gasto pelo método preparar, em milissegundos.
+     * @return Retorna o tempo gasto pelo método getExpressaoFor(), em milissegundos.
      *
      */
-    public double avaliar(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao) {
+    public double avaliar(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao, String nomeDaClasse) {
 
         try {
 
+            Adapter adapter = factoryAdapter.newInstance(nomeDaClasse);
+
             long inicio = System.currentTimeMillis();
-            Expressao exp = factoryAdapter.getAdapter().getExpressaoFor(expressao);
+            Expressao exp = adapter.getExpressaoFor(expressao);
             long termino = System.currentTimeMillis();
             long tempoEmMilissegundo = termino - inicio;
 
@@ -46,6 +52,16 @@ public class Latencia implements Avaliador {
             return tempoEmMilissegundo;
 
         } catch (RespostaErradaException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
