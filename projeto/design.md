@@ -179,8 +179,8 @@ Avaliador.
 Produz uma instância de _Adapter_ por meio do método _newInstance(String nomeDaClasse)_.
 
 #### [Teste](src/test/Teste.java) (classe)
-Uma instância desta classe possui uma expressão (String), um valor para cada uma das variáveis empregadas na expressão 
-e o resultado correspondente. 
+Uma instância desta classe possui uma expressão (String), um valor para cada uma das variáveis empregadas na expressão, 
+o resultado correspondente, a quantidade de repetições e o intervalo de precisão exigido. 
 
 #### [BancadaDeTestes](src/test/BancadaDeTestes.java) implements Supplier<Teste>
 O construtor recebe como argumento o nome de um arquivo CSV cujas cinco colunas são, nesta ordem: 

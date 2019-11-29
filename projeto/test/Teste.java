@@ -14,11 +14,15 @@ public class Teste {
     String expressao;
     Map<String, Double> variaveis;
     double resultado;
+    int qtdRepeticoes;
+    double intervaloPrecisao;
 
-    public Teste(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao) {
+    public Teste(String expressao, Map<String, Double> variaveis, double resultado, int qtdRepeticoes, double intervaloPrecisao) {
         this.expressao = expressao;
         this.variaveis = variaveis;
         this.resultado = resultado;
+        this.qtdRepeticoes = qtdRepeticoes;
+        this.intervaloPrecisao = intervaloPrecisao;
     }
 
     public String getExpressao() {
@@ -43,5 +47,21 @@ public class Teste {
 
     public void setResultado(double resultado) {
         this.resultado = resultado;
+    }
+
+    public int getQtdRepeticoes() {
+        return qtdRepeticoes;
+    }
+
+    public void setQtdRepeticoes(int qtdRepeticoes) {
+        this.qtdRepeticoes = qtdRepeticoes;
+    }
+
+    public double getIntervaloPrecisao() {
+        return intervaloPrecisao;
+    }
+
+    public void setIntervaloPrecisao(double intervaloPrecisao) {
+        this.intervaloPrecisao = intervaloPrecisao;
     }
 }
