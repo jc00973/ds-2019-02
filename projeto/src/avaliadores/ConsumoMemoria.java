@@ -62,7 +62,7 @@ public class ConsumoMemoria implements Avaliador {
             return memoriaUtilizada;
 
         } catch (RespostaErradaException e) {
-            e.printStackTrace();
+            return -1;
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

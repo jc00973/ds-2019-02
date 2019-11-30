@@ -29,15 +29,15 @@ citados acima, a quantidade de repetições também deve ser informada a cada caso 
 - Ao decorrer do documento, todos esse pontos são explicados detalhadamente, com 
 [exemplos de implementação](https://github.com/jc00973/ds-2019-02/tree/master/projeto).
 
-- O exemplo de implementação acima tem intuito apenas de ilustrar algumas implementações importantes que indicam a 
+- Os exemplos de implementação acima tem intuito apenas de ilustrar algumas implementações importantes que indicam a 
 estrutura do benchmark em si (como a utilização dos patterns Factory e Strategy), não devendo ser utilizada como 
 implementação final e também não ilustra toda a implementação que deve ser feita. 
 
 - Por exemplo, na leitura e escrita de arquivos txt e na leitura de arquivos CSV, este design orienta como e onde devem
-ser implementadas, inclusive redireciona para materiais que podem auxiliar na implementação, mas não contém a 
-implementação completa em si, por isso ir além do intuito principal do design que é planejar e não construir em si.
+ser implementadas, inclusive redireciona para materiais que podem auxiliar na codificação, mas não consiste em um  
+código implementável completo, por isso ir além do intuito principal do design que é planejar e não construir em si.
 
-- Neste documento, há diversos links para o exemplo de implementação conforme são citados.
+- Neste documento, há diversos links para as classes e interfaces do exemplo de implementação, conforme são citados.
 
  ### Conceitos fundamentais
 
@@ -81,8 +81,9 @@ descrita abaixo:
     - Expressão: Por exemplo, 2*(3-x).
     
     - Resultado: O valor da expressão. Por exemplo, para a expressão acima e o  valor de x igual a 10 (x=10), o resultado 
-    é -14. Caso a expressão seja inválida, então o resultado deve ser a  sequência "ERRO". Por exemplo, se a  expressão 
-    fornecida é "2*)", então o resultado deve ser "ERRO", pois não se trata de uma expressão válida. 
+    é -14. Caso a resposta dada pela avaliação seja diferente de -14 (mesmo considerando o intervalo de precisão), o
+    benchmark chama a exceção RespostaErradaException e a execução da avaliação é interrompida. O tratamento dessa 
+    exceção é o método *retornar -1*, independentemente do tipo de avaliação que está sendo executada.
     
     - Quantidade de repetições: A quantidade de vezes que o mesmo caso de teste deve ser efetuado. É necessário que o valor
     mínimo seja 1, caso contrário, a avaliadar não será executada e o valor retornado para o teste em questão será 
@@ -91,7 +92,7 @@ descrita abaixo:
     - Intervalo de precisão: Deve-se especificar qual o intervalo máximo tolerável de divergência entre a resposta dada pelo
     Avaliador de Expressão e o resultado esperado.
 
-2) O arquivo CSV deve ter as seguintes configurações:
+2) O arquivo CSV deve atender as seguintes especificações:
     
         (a) Character set: Unicode (UTF-8)
         (b) Field delimiter: {Tab}
@@ -124,7 +125,7 @@ memória e latência), conforme o diagrama de classes abaixo:
 
 ![Diagrama de sequência](diagramas/png/sequencia.png)
 
-#### [Aplicativo](src/Aplicativo.java) (classe)
+#### Aplicativo (classe)
 Ponto de entrada para execução do _benchmark_. A classe deve ser implementada seguindo o fluxo esperado abaixo:
 
 1) Esta classe recebe como entrada um arquivo txt indicando o que deverá ser executado pelo _benchmark_. Cada uma 
@@ -155,18 +156,33 @@ pode ser realizada conforme as orientação encontradas nesse
 
 3) Ao final das instanciações dos testes, a classe _BancadaDeTestes_ retorna um List<Teste> testes.
 
-4) O Aplicativo então, de acordo com o codigoTipoAvaliacao, acessa a implementação da interface _Avaliador_ 
-correspondente, e executa o método avaliar() da implementação.
+4) O Aplicativo então, de acordo com o codigoTipoAvaliacao, instancia a implementação da interface _Avaliador_ 
+correspondente, e executa o método avaliar() da implementação. A instanciação a partir do codigoTipoAvaliacao pode ser
+realizada desta forma:
+
+    ````java
+    public double selecionarTipoAvaliacao(String codigoTipoAvaliacao) {
+    
+       if(codigoTipoAvaliacao == "1") { 
+           avaliador = new Desempenho();
+       } else if(codigoTipoAvaliacao == "2") {
+           avaliador = new ConsumoMemoria();
+       } else if(codigoTipoAvaliacao == "3") {
+           avaliador = new Latencia();
+       }             
+   }
+    ````
 
 5) A implementação do _Avaliador_ irá realizar as operações de instanciação conforme o diagrama de sequências contido
 acima. No final de cada utilização do método avaliar(), ela retorna o resultado da avaliação.
 
-6) Cada resultado retornado é armazenado na List<String> resultados, indexando os resultados na ordem que aparecem no
-arquivo.csv.
+6) Cada resultado retornado é armazenado na List<String> resultados, da classe _Aplicativo_, indexando os resultados na
+ordem que aparecem no arquivo.csv.
 
 7) Ao final dos acessos ao método avalia(), a lista de resultados é convertida em um arquivo relatorioAvaliacao.txt,
 que é escrito no caminho informado pelo Avaliador de Expressão. A conversão dos resultados em texto deve utilizar o 
-mesmo package implementado para leitura do arquivo de entrada.
+mesmo package implementado para leitura do arquivo de entrada. Resultados igual a -1 não devem ser escritos no arquivo.
+Neste caso, deve-se escrever "RESPOSTA ERRADA" no lugar.
 
 - Detalhes do relatorioAvaliacao.txt: O resultado de cada teste é dado na mesma linha em que o teste aparece no arquivo 
 CSV. Este resultado deve indicar, respectivamente ao tipo de avaliação:
@@ -204,7 +220,7 @@ CSV. Este resultado deve indicar, respectivamente ao tipo de avaliação:
         2. 22234 bytes
         3. 12233 bytes
         4. 23423 bytes
-        5. 55443 bytes
+        5. RESPOSTA ERRADA
         6. 9894 bytes  
         
 

@@ -7,13 +7,20 @@
 
 import avaliadores.Avaliador;
 import avaliadores.ConsumoMemoria;
+import avaliadores.Desempenho;
+import avaliadores.Latencia;
 
 import java.util.List;
+import java.util.Map;
 
 public class Aplicativo {
 
         private Avaliador avaliador;
         private List<String> resultados;
+        String nomeDaClasse;
+        String caminhoArquivoCsv;
+        String codigoTipoAvaliacao;
+        String caminhoRelatorioResultado;
 
         /**
          * Este método recebe um arquivo.txt com 3 informações, respectivamente:
@@ -26,18 +33,25 @@ public class Aplicativo {
          *      (d) caminho do diretório onde o relatorioResultado.txt deve ser escrito.
          *
          */
-        public void insereEntrada() {
+        public void insereEntrada() {};
 
-                String nomeDaClasse;
-                String caminhoArquivoCsv;
-                String codigoTipoAvaliacao;
-                String caminhoRelatorioResultado;
 
-        };
+        /**
+         * O método vai instanciar o strategy concreto de acordo com o codigoTipoAvaliacao informado e acessar o método
+         * avaliar().
+         *
+         * @param codigoTipoAvaliacao O tipo de avaliação que será efetuada.
+         */
+        public void selecionarTipoAvaliacao(String codigoTipoAvaliacao) {
 
-        public static void main(String[] args) {
+                if(codigoTipoAvaliacao == "1") {
+                        avaliador = new Desempenho();
+                } else if(codigoTipoAvaliacao == "2") {
+                        avaliador = new ConsumoMemoria();
+                } else if(codigoTipoAvaliacao == "3") {
+                        avaliador = new Latencia();
+                }
 
         }
-
 
 }

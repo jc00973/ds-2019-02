@@ -57,7 +57,7 @@ public class Desempenho implements Avaliador {
             return tempoTotal;
 
         } catch (RuntimeException re) {
-            re.printStackTrace();
+            return -1;
         } catch (RespostaErradaException ree) {
             ree.printStackTrace();
         } catch (InstantiationException e) {

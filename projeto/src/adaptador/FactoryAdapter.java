@@ -14,6 +14,12 @@ import java.util.Map;
 
 public class FactoryAdapter {
 
+    /**
+     * Método que instancia o adapter dado o nome da classe.
+     *
+     * @param nomeDaClasse O nome da classe que implementa o Adapter.
+     *
+     */
     public static <T> T newInstance(String nomeDaClasse)
             throws ClassNotFoundException, InstantiationException,
             IllegalAccessException, InvocationTargetException,

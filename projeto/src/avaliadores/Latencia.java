@@ -52,7 +52,7 @@ public class Latencia implements Avaliador {
             return tempoEmMilissegundo;
 
         } catch (RespostaErradaException e) {
-            e.printStackTrace();
+            return -1;
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
