@@ -1,98 +1,98 @@
 
-# Design detalhado: Benchmark para avaliadores de expressıes matem·ticas
+# Design detalhado: Benchmark para avaliadores de express√µes matem√°ticas
 
-- AlÈm de permitir validar uma implementaÁ„o de um avaliador de expressıes, 
-o presente _benchmark_ tambÈm considera relevante outros aspectos:
+- Al√©m de permitir validar uma implementa√ß√£o de um avaliador de express√µes, 
+o presente _benchmark_ tamb√©m considera relevante outros aspectos:
 
-    - Desempenho: Tempo gasto para avaliaÁ„o de uma express„o.
-    - MemÛria: Consumo de memÛria incorrido ao avaliar expressıes.
-    - LatÍncia: Tempo gasto para prÈ-processamento de uma express„o, caso  exista esta opÁ„o, sem incluir o tempo consumido
-     na avaliaÁ„o da express„o.
-    - Carga: Tempo gasto para avaliaÁ„o de diversas expressıes, simulando a utilizaÁ„o extrema do avaliador para observar 
-    o seu comportamento em situaÁıes de estresse.
-    - Precis„o: Se a precis„o do resultado obtido pelo avaliador de expressıes atende ao epsilon exigido como precis„o. 
+    - Desempenho: Tempo gasto para avalia√ß√£o de uma express√£o.
+    - Mem√≥ria: Consumo de mem√≥ria incorrido ao avaliar express√µes.
+    - Lat√™ncia: Tempo gasto para pr√©-processamento de uma express√£o, caso  exista esta op√ß√£o, sem incluir o tempo consumido
+     na avalia√ß√£o da express√£o.
+    - Carga: Tempo gasto para avalia√ß√£o de diversas express√µes, simulando a utiliza√ß√£o extrema do avaliador para observar 
+    o seu comportamento em situa√ß√µes de estresse.
+    - Precis√£o: Se a precis√£o do resultado obtido pelo avaliador de express√µes atende ao epsilon exigido como precis√£o. 
 
-- Este benchmark foi pensado para abordar os cincos critÈrios de avaliaÁ„o por meio do padr„o de projeto Strategy, havendo
-uma interface _Avaliador_ e as trÍs classes que a implementam: _ConsumoMemoria_, _Desempenho_ e _Latencia_.
+- Este benchmark foi pensado para abordar os cincos crit√©rios de avalia√ß√£o por meio do padr√£o de projeto Strategy, havendo
+uma interface _Avaliador_ e as tr√™s classes que a implementam: _ConsumoMemoria_, _Desempenho_ e _Latencia_.
 
-- Os critÈrios de carga e precis„o foram definidos como preliminares a qualquer um dos trÍs tipos de critÈrios de avaliaÁ„o
+- Os crit√©rios de carga e precis√£o foram definidos como preliminares a qualquer um dos tr√™s tipos de crit√©rios de avalia√ß√£o
 acima. 
 
-- A precis„o È abordada como um par‚metro que deve ser informado juntamente com a prÛpria express„o, os valores de
-suas vari·veis e o resultado. A comparaÁ„o do resultado obtido com o esperado È realizada considerando o intervalo de 
-precis„o informado.
+- A precis√£o √© abordada como um par√¢metro que deve ser informado juntamente com a pr√≥pria express√£o, os valores de
+suas vari√°veis e o resultado. A compara√ß√£o do resultado obtido com o esperado √© realizada considerando o intervalo de 
+precis√£o informado.
 
-- O critÈrio de carga tambÈm È abordado de maneira integrada aos demais critÈrios. Justamente com os quatro par‚metros
-citados acima, a quantidade de repetiÁıes tambÈm deve ser informada a cada caso de teste inserido. Com isso, o intuito
-È dar autonomia ao Avaliador devido a possibilidade de personalizar a avaliaÁ„o da carga.
+- O crit√©rio de carga tamb√©m √© abordado de maneira integrada aos demais crit√©rios. Justamente com os quatro par√¢metros
+citados acima, a quantidade de repeti√ß√µes tamb√©m deve ser informada a cada caso de teste inserido. Com isso, o intuito
+√© dar autonomia ao Avaliador devido a possibilidade de personalizar a avalia√ß√£o da carga.
 
-- Ao decorrer do documento, todos esse pontos s„o explicados detalhadamente, com 
-[exemplos de implementaÁ„o](https://github.com/jc00973/ds-2019-02/tree/master/projeto).
+- Ao decorrer do documento, todos esse pontos s√£o explicados detalhadamente, com 
+[exemplos de implementa√ß√£o](https://github.com/jc00973/ds-2019-02/tree/master/projeto).
 
-- Os exemplos de implementaÁ„o acima tem intuito apenas de ilustrar algumas implementaÁıes importantes que indicam a 
-estrutura do benchmark em si (como a utilizaÁ„o dos patterns Factory e Strategy), n„o devendo ser utilizada como 
-implementaÁ„o final e tambÈm n„o ilustra toda a implementaÁ„o que deve ser feita. 
+- Os exemplos de implementa√ß√£o acima tem intuito apenas de ilustrar algumas implementa√ß√µes importantes que indicam a 
+estrutura do benchmark em si (como a utiliza√ß√£o dos patterns Factory e Strategy), n√£o devendo ser utilizada como 
+implementa√ß√£o final e tamb√©m n√£o ilustra toda a implementa√ß√£o que deve ser feita. 
 
 - Por exemplo, na leitura e escrita de arquivos txt e na leitura de arquivos CSV, este design orienta como e onde devem
-ser implementadas, inclusive redireciona para materiais que podem auxiliar na codificaÁ„o, mas n„o consiste em um  
-cÛdigo implement·vel completo, por isso ir alÈm do intuito principal do design que È planejar e n„o construir em si.
+ser implementadas, inclusive redireciona para materiais que podem auxiliar na codifica√ß√£o, mas n√£o consiste em um  
+c√≥digo implement√°vel completo, por isso ir al√©m do intuito principal do design que √© planejar e n√£o construir em si.
 
-- Neste documento, h· diversos links para as classes e interfaces do exemplo de implementaÁ„o, conforme s„o citados.
+- Neste documento, h√° diversos links para as classes e interfaces do exemplo de implementa√ß√£o, conforme s√£o citados.
 
  ### Conceitos fundamentais
 
-  #### Avaliador de Express„o  
-  - Biblioteca ou serviÁo que implementa a avaliaÁ„o de expressıes matem·ticas. N„o confudir com a interface _Avaliador_
-  , que est· presente nesta proposta de design.
+  #### Avaliador de Express√£o  
+  - Biblioteca ou servi√ßo que implementa a avalia√ß√£o de express√µes matem√°ticas. N√£o confudir com a interface _Avaliador_
+  , que est√° presente nesta proposta de design.
 
   #### Adaptador
-  - CÛdigo respons·vel por requisitar a avaliaÁ„o de expressıes matem·ticas pelo Avaliador. Deve ser produzido um 
-  adaptador para cada Avaliador de Express„o. 
+  - C√≥digo respons√°vel por requisitar a avalia√ß√£o de express√µes matem√°ticas pelo Avaliador. Deve ser produzido um 
+  adaptador para cada Avaliador de Express√£o. 
 
  ### Fluxo principal de funcionamento:
 
   ##### 01
-   - A partir do nome da classe È obtida uma inst‚ncia de _Adapter_. 
+   - A partir do nome da classe √© obtida uma inst√¢ncia de _Adapter_. 
     
   ##### 02   
-   - Para cada linha de teste do arquivo de entrada, um inst‚ncia de _Teste_ È criada em _BancadaDeTestes_. 
+   - Para cada linha de teste do arquivo de entrada, um inst√¢ncia de _Teste_ √© criada em _BancadaDeTestes_. 
     
   ##### 03
-   - Para cada _Teste_ retornado pela inst‚ncia de _BancadaDeTestes_, por meio do mÈtodo _getTestes_, 
-   obtÈm-se a express„o correspondente, a partir da qual, por meio da inst‚ncia de _Adapter_ obtÈm-se a inst‚ncia de 
+   - Para cada _Teste_ retornado pela inst√¢ncia de _BancadaDeTestes_, por meio do m√©todo _getTestes_, 
+   obt√©m-se a express√£o correspondente, a partir da qual, por meio da inst√¢ncia de _Adapter_ obt√©m-se a inst√¢ncia de 
    _Expressao_ correspondente. 
     
   ##### 04
-  - Este ˙ltimo objeto recebe a mensagem _avaliacao_ cujo argumento È o conjunto de valores. O retorno È verificado
+  - Este √∫ltimo objeto recebe a mensagem _avaliacao_ cujo argumento √© o conjunto de valores. O retorno √© verificado
     com aquele do teste. 
-  - Se o valor retornado difere do esperado, ent„o o caso de teste retorna um valor correspondete ao erro.    
-  - Ao final, o benchmark retorna um arquivo txt contendo o relatÛrio da avaliaÁ„o realizada.  
+  - Se o valor retornado difere do esperado, ent√£o o caso de teste retorna um valor correspondete ao erro.    
+  - Ao final, o benchmark retorna um arquivo txt contendo o relat√≥rio da avalia√ß√£o realizada.  
 
-### ValidaÁ„o da correÁ„o
+### Valida√ß√£o da corre√ß√£o
 
-1) A validaÁ„o da correÁ„o de uma implementaÁ„o ser· fornecida por meio de um arquivo CSV contendo cinco colunas, na ordem 
+1) A valida√ß√£o da corre√ß√£o de uma implementa√ß√£o ser√° fornecida por meio de um arquivo CSV contendo cinco colunas, na ordem 
 descrita abaixo:
 
-    - Vari·veis: Valores das vari·veis a serem utilizadas na avaliaÁ„o da express„o  ser„o fornecidas separadas por vÌrgula.
-     Por exemplo, para a express„o acima podemos ter x=10. Se a express„o faz uso de mais de uma vari·vel, ent„o os valores
-     devem ser separados por vÌrgula. Por exemplo, para a express„o "a + b", os valores das vari·veis podem ser 
+    - Vari√°veis: Valores das vari√°veis a serem utilizadas na avalia√ß√£o da express√£o  ser√£o fornecidas separadas por v√≠rgula.
+     Por exemplo, para a express√£o acima podemos ter x=10. Se a express√£o faz uso de mais de uma vari√°vel, ent√£o os valores
+     devem ser separados por v√≠rgula. Por exemplo, para a express√£o "a + b", os valores das vari√°veis podem ser 
      "a=1,b=3.4", por exemplo.
      
-    - Express„o: Por exemplo, 2*(3-x).
+    - Express√£o: Por exemplo, 2*(3-x).
     
-    - Resultado: O valor da express„o. Por exemplo, para a express„o acima e o  valor de x igual a 10 (x=10), o resultado 
-    È -14. Caso a resposta dada pela avaliaÁ„o seja diferente de -14 (mesmo considerando o intervalo de precis„o), o
-    benchmark chama a exceÁ„o RespostaErradaException e a execuÁ„o da avaliaÁ„o È interrompida. O tratamento dessa 
-    exceÁ„o È o mÈtodo *retornar -1*, independentemente do tipo de avaliaÁ„o que est· sendo executada.
+    - Resultado: O valor da express√£o. Por exemplo, para a express√£o acima e o  valor de x igual a 10 (x=10), o resultado 
+    √© -14. Caso a resposta dada pela avalia√ß√£o seja diferente de -14 (mesmo considerando o intervalo de precis√£o), o
+    benchmark chama a exce√ß√£o RespostaErradaException e a execu√ß√£o da avalia√ß√£o √© interrompida. O tratamento dessa 
+    exce√ß√£o √© o m√©todo *retornar -1*, independentemente do tipo de avalia√ß√£o que est√° sendo executada.
     
-    - Quantidade de repetiÁıes: A quantidade de vezes que o mesmo caso de teste deve ser efetuado. … necess·rio que o valor
-    mÌnimo seja 1, caso contr·rio, a avaliadar n„o ser· executada e o valor retornado para o teste em quest„o ser· 
-    -1, que indica que a avaliaÁ„o n„o foi executada.
+    - Quantidade de repeti√ß√µes: A quantidade de vezes que o mesmo caso de teste deve ser efetuado. √â necess√°rio que o valor
+    m√≠nimo seja 1, caso contr√°rio, a avaliadar n√£o ser√° executada e o valor retornado para o teste em quest√£o ser√° 
+    -1, que indica que a avalia√ß√£o n√£o foi executada.
     
-    - Intervalo de precis„o: Deve-se especificar qual o intervalo m·ximo toler·vel de divergÍncia entre a resposta dada pelo
-    Avaliador de Express„o e o resultado esperado.
+    - Intervalo de precis√£o: Deve-se especificar qual o intervalo m√°ximo toler√°vel de diverg√™ncia entre a resposta dada pelo
+    Avaliador de Express√£o e o resultado esperado.
 
-2) O arquivo CSV deve atender as seguintes especificaÁıes:
+2) O arquivo CSV deve atender as seguintes especifica√ß√µes:
     
         (a) Character set: Unicode (UTF-8)
         (b) Field delimiter: {Tab}
@@ -101,9 +101,9 @@ descrita abaixo:
 Clique [aqui](rascunho/arquivoTestes.csv) para acessar um arquivo CSV com o formato esperado.
 
 
-#### Exemplo do conte˙do dos casos de teste contidos no arquivo CSV: 
+#### Exemplo do conte√∫do dos casos de teste contidos no arquivo CSV: 
   
-  |   Express„o   |  Vari·veis  |    Resultado    |    RepetiÁıes   |     Precis„o    |
+  |   Express√£o   |  Vari√°veis  |    Resultado    |    Repeti√ß√µes   |     Precis√£o    |
   |     :---:     |     :---:   |       :---:     |       :---:     |       :---:     |
   | 2*(3-x)       |      x=5    |         -4      |          1      |         0.1     |
   | x+y/2         | x=2,y=10    |          7      |          3      |         0.1     |
@@ -114,33 +114,33 @@ Clique [aqui](rascunho/arquivoTestes.csv) para acessar um arquivo CSV com o form
 
 ### Classes esperadas
 
-- Toda implementaÁ„o a ser avaliada pelo presente _benchmark_ deve incluir as classes/interfaces identificadas abaixo.
+- Toda implementa√ß√£o a ser avaliada pelo presente _benchmark_ deve incluir as classes/interfaces identificadas abaixo.
 
-- Foi adotado o padr„o de projeto Strategy para abordar os trÍs tipos possÌveis de avaliaÁ„o (desempenho, consumo de 
-memÛria e latÍncia), conforme o diagrama de classes abaixo:
+- Foi adotado o padr√£o de projeto Strategy para abordar os tr√™s tipos poss√≠veis de avalia√ß√£o (desempenho, consumo de 
+mem√≥ria e lat√™ncia), conforme o diagrama de classes abaixo:
 
 ![Diagrama de classes Strategy](diagramas/png/strategy.png)
 
-- O benchmark deve ser implementado de acordo com o diagrama de sequÍncia e demais instruÁıes abaixo:
+- O benchmark deve ser implementado de acordo com o diagrama de sequ√™ncia e demais instru√ß√µes abaixo:
 
-![Diagrama de sequÍncia](diagramas/png/sequencia.png)
+![Diagrama de sequ√™ncia](diagramas/png/sequencia.png)
 
 #### Aplicativo (classe)
-Ponto de entrada para execuÁ„o do _benchmark_. A classe deve ser implementada seguindo o fluxo esperado abaixo:
+Ponto de entrada para execu√ß√£o do _benchmark_. A classe deve ser implementada seguindo o fluxo esperado abaixo:
 
-1) Esta classe recebe como entrada um arquivo txt indicando o que dever· ser executado pelo _benchmark_. Cada uma 
-das informaÁıes abaixo deve contar em uma linha distinta. A leitura e escritas de arquivo deve ser implementada utilizan-
+1) Esta classe recebe como entrada um arquivo txt indicando o que dever√° ser executado pelo _benchmark_. Cada uma 
+das informa√ß√µes abaixo deve contar em uma linha distinta. A leitura e escritas de arquivo deve ser implementada utilizan-
 o package [java.io](https://docs.oracle.com/javase/7/docs/api/java/io/package-summary.html), utilizando suas classes
-_FileReader_, _FileWriter_, _BufferedReader_, _BufferedWriter_ e _IOException_. Pode-se realizar a implementaÁ„o 
-conforme as orientaÁıes nesse [link](https://www.devmedia.com.br/leitura-e-escrita-de-arquivos-de-texto-em-java/25529).
+_FileReader_, _FileWriter_, _BufferedReader_, _BufferedWriter_ e _IOException_. Pode-se realizar a implementa√ß√£o 
+conforme as orienta√ß√µes nesse [link](https://www.devmedia.com.br/leitura-e-escrita-de-arquivos-de-texto-em-java/25529).
 
     - Nome da classe que implementa o adaptador (String nomeDaClasse)
-    - Caminho do diretÛrio contendo o nome do arquivo CSV que contÈm os testes (String caminhoArquivoCsv).
-    - CÛdigo de um dos trÍs tipos de avaliaÁ„o desejado (String codigoTipoAvaliacao):
+    - Caminho do diret√≥rio contendo o nome do arquivo CSV que cont√©m os testes (String caminhoArquivoCsv).
+    - C√≥digo de um dos tr√™s tipos de avalia√ß√£o desejado (String codigoTipoAvaliacao):
         (1) Desempenho;
-        (2) Consumo de memÛria;
-        (3) LatÍncia.
-    - Caminho do diretÛrio onde o relatorioResultado.txt deve ser escrito (String caminhoRelatorioResultado).
+        (2) Consumo de mem√≥ria;
+        (3) Lat√™ncia.
+    - Caminho do diret√≥rio onde o relatorioResultado.txt deve ser escrito (String caminhoRelatorioResultado).
 
 ##### Exemplo de arquivo txt de entrada:
         
@@ -149,15 +149,15 @@ conforme as orientaÁıes nesse [link](https://www.devmedia.com.br/leitura-e-escri
         3
         /home/argos/Desktop/        
         
-2) Em seguida, a classe Aplicativo dever· acessar o arquivo.csv e converter cada linha em par‚metros que ser„o enviados
-para _BancadaDeTestes_ para que ela crie e armazene uma inst‚ncia de _Teste_. A implemetaÁ„o da leitura de arquivos csv 
-pode ser realizada conforme as orientaÁ„o encontradas nesse 
+2) Em seguida, a classe Aplicativo dever√° acessar o arquivo.csv e converter cada linha em par√¢metros que ser√£o enviados
+para _BancadaDeTestes_ para que ela crie e armazene uma inst√¢ncia de _Teste_. A implemeta√ß√£o da leitura de arquivos csv 
+pode ser realizada conforme as orienta√ß√£o encontradas nesse 
 [link](https://dicasdejava.com.br/como-ler-arquivos-csv-em-java/).
 
-3) Ao final das instanciaÁıes dos testes, a classe _BancadaDeTestes_ retorna um List<Teste> testes.
+3) Ao final das instancia√ß√µes dos testes, a classe _BancadaDeTestes_ retorna um List<Teste> testes.
 
-4) O Aplicativo ent„o, de acordo com o codigoTipoAvaliacao, instancia a implementaÁ„o da interface _Avaliador_ 
-correspondente, e executa o mÈtodo avaliar() da implementaÁ„o. A instanciaÁ„o a partir do codigoTipoAvaliacao pode ser
+4) O Aplicativo ent√£o, de acordo com o codigoTipoAvaliacao, instancia a implementa√ß√£o da interface _Avaliador_ 
+correspondente, e executa o m√©todo avaliar() da implementa√ß√£o. A instancia√ß√£o a partir do codigoTipoAvaliacao pode ser
 realizada desta forma:
 
     ````java
@@ -173,24 +173,24 @@ realizada desta forma:
    }
     ````
 
-5) A implementaÁ„o do _Avaliador_ ir· realizar as operaÁıes de instanciaÁ„o conforme o diagrama de sequÍncias contido
-acima. No final de cada utilizaÁ„o do mÈtodo avaliar(), ela retorna o resultado da avaliaÁ„o.
+5) A implementa√ß√£o do _Avaliador_ ir√° realizar as opera√ß√µes de instancia√ß√£o conforme o diagrama de sequ√™ncias contido
+acima. No final de cada utiliza√ß√£o do m√©todo avaliar(), ela retorna o resultado da avalia√ß√£o.
 
-6) Cada resultado retornado È armazenado na List<String> resultados, da classe _Aplicativo_, indexando os resultados na
+6) Cada resultado retornado √© armazenado na List<String> resultados, da classe _Aplicativo_, indexando os resultados na
 ordem que aparecem no arquivo.csv.
 
-7) Ao final dos acessos ao mÈtodo avalia(), a lista de resultados È convertida em um arquivo relatorioAvaliacao.txt,
-que È escrito no caminho informado pelo Avaliador de Express„o. A convers„o dos resultados em texto deve utilizar o 
-mesmo package implementado para leitura do arquivo de entrada. Resultados igual a -1 n„o devem ser escritos no arquivo.
+7) Ao final dos acessos ao m√©todo avalia(), a lista de resultados √© convertida em um arquivo relatorioAvaliacao.txt,
+que √© escrito no caminho informado pelo Avaliador de Express√£o. A convers√£o dos resultados em texto deve utilizar o 
+mesmo package implementado para leitura do arquivo de entrada. Resultados igual a -1 n√£o devem ser escritos no arquivo.
 Neste caso, deve-se escrever "RESPOSTA ERRADA" no lugar.
 
-- Detalhes do relatorioAvaliacao.txt: O resultado de cada teste È dado na mesma linha em que o teste aparece no arquivo 
-CSV. Este resultado deve indicar, respectivamente ao tipo de avaliaÁ„o:
-    (1) Desempenho: o tempo gasto na execuÁ„o de cada um dos testes (linha de teste do arquivo de entrada);
-    (2) Consumo de memÛria: a memÛria gasta na execuÁ„o de cada um dos testes;
-    (3) LatÍncia: a latÍncia (tempo de execuÁ„o do mÈtodo getExpressaoFor) antes da execuÁ„o de cada teste.
+- Detalhes do relatorioAvaliacao.txt: O resultado de cada teste √© dado na mesma linha em que o teste aparece no arquivo 
+CSV. Este resultado deve indicar, respectivamente ao tipo de avalia√ß√£o:
+    (1) Desempenho: o tempo gasto na execu√ß√£o de cada um dos testes (linha de teste do arquivo de entrada);
+    (2) Consumo de mem√≥ria: a mem√≥ria gasta na execu√ß√£o de cada um dos testes;
+    (3) Lat√™ncia: a lat√™ncia (tempo de execu√ß√£o do m√©todo getExpressaoFor) antes da execu√ß√£o de cada teste.
     
-##### Exemplo de arquivo txt de saÌda no caso de teste de desempenho:
+##### Exemplo de arquivo txt de sa√≠da no caso de teste de desempenho:
         
         TESTE DE DESEMPENHO
         
@@ -201,7 +201,7 @@ CSV. Este resultado deve indicar, respectivamente ao tipo de avaliaÁ„o:
         5. 41 ms
         6. 33 ms   
         
-##### Exemplo de arquivo txt de saÌda no caso de teste de latÍncia:
+##### Exemplo de arquivo txt de sa√≠da no caso de teste de lat√™ncia:
         
         TESTE DE DESEMPENHO
         
@@ -212,7 +212,7 @@ CSV. Este resultado deve indicar, respectivamente ao tipo de avaliaÁ„o:
         5. 451 ms
         6. 363 ms   
         
-##### Exemplo de arquivo txt de saÌda no caso de teste de consumo de memÛria:
+##### Exemplo de arquivo txt de sa√≠da no caso de teste de consumo de mem√≥ria:
         
         TESTE DE DESEMPENHO
         
@@ -225,55 +225,55 @@ CSV. Este resultado deve indicar, respectivamente ao tipo de avaliaÁ„o:
         
 
 #### [Expressao](src/adaptador/Expressao.java) (interface)
-Esta interface deve possuir o mÈtodo _avaliar_. Essa interface deve ser implementada pelo Avaliador de Express„o.
+Esta interface deve possuir o m√©todo _avaliar_. Essa interface deve ser implementada pelo Avaliador de Express√£o.
 
 #### [Adapter](src/adaptador/Adapter.java) (interface)
-Esta interface possui o mÈtodo _Expressao getExpressaoFor(String expressao)_. A execuÁ„o deste mÈtodo inclui a 
-preparaÁ„o da express„o fornecida, caso exista, antes que seja executada. Essa interface deve ser implementada pelo 
-Avaliador de Express„o.
+Esta interface possui o m√©todo _Expressao getExpressaoFor(String expressao)_. A execu√ß√£o deste m√©todo inclui a 
+prepara√ß√£o da express√£o fornecida, caso exista, antes que seja executada. Essa interface deve ser implementada pelo 
+Avaliador de Express√£o.
 
 #### [FactoryAdapter](src/adaptador/FactoryAdapter.java) (classe)
-- Produz uma inst‚ncia de _Adapter_ por meio do mÈtodo _newInstance(String nomeDaClasse)_. Ao necessitar utilizar uma
-inst‚ncia de Adapter, deve-se: 
+- Produz uma inst√¢ncia de _Adapter_ por meio do m√©todo _newInstance(String nomeDaClasse)_. Ao necessitar utilizar uma
+inst√¢ncia de Adapter, deve-se: 
 
     ````java
     Adapter adapter = factoryAdapter.newInstance(nomeDaClasse);
     ```` 
-- ApÛs isso, ser· possÌvel instanciar uma Expressao:
+- Ap√≥s isso, ser√° poss√≠vel instanciar uma Expressao:
 
     ````java
     Expressao exp = adapter.getExpressaoFor(expressao);
     ```` 
   
-#### [Teste](src/test/Teste.java) (classe)
-Uma inst‚ncia desta classe possui uma express„o (String), um valor para cada uma das vari·veis empregadas na express„o, 
-o resultado correspondente, a quantidade de repetiÁıes e o intervalo de precis„o exigido. 
+#### [Teste](https://github.com/jc00973/ds-2019-02/blob/master/projeto/test/Teste.java) (classe)
+Uma inst√¢ncia desta classe possui uma express√£o (String), um valor para cada uma das vari√°veis empregadas na express√£o, 
+o resultado correspondente, a quantidade de repeti√ß√µes e o intervalo de precis√£o exigido. 
 
-#### [BancadaDeTestes](src/test/BancadaDeTestes.java)
-O construtor recebe como argumento o nome de um arquivo CSV cujas cinco colunas s„o, nesta ordem: 
+#### [BancadaDeTestes](https://github.com/jc00973/ds-2019-02/blob/master/projeto/test/BancadaDeTestes.java)
+O construtor recebe como argumento o nome de um arquivo CSV cujas cinco colunas s√£o, nesta ordem: 
 
- (a) Vari·veis.
- (b) Express„o.
+ (a) Vari√°veis.
+ (b) Express√£o.
  (c) Resultado.
- (d) Quantidade de repetiÁıes.
- (e) Intervalo de precis„o.
+ (d) Quantidade de repeti√ß√µes.
+ (e) Intervalo de precis√£o.
 
-O mÈtodo _getTestes()_ deve ser implementado. Ele ser· utilizado pelo _Aplicativo_ para recuperar os testes
+O m√©todo _getTestes()_ deve ser implementado. Ele ser√° utilizado pelo _Aplicativo_ para recuperar os testes
 instanciados, um por um, na ordem em que aparecem no arquivo CSV.
 
 #### [Avaliador](src/avaliadores/Avaliador.java) (interface)
-- A interface principal do Strategy pattern, que ser· implementada pelas trÍs classes abaixo. Esta interface contÈm
-um ˙nico mÈtodo:
+- A interface principal do Strategy pattern, que ser√° implementada pelas tr√™s classes abaixo. Esta interface cont√©m
+um √∫nico m√©todo:
 
     ````java
     double avaliar(Map<String, Double> variaveis, String expressao, double resultadoEsperado, int qtdRepeticoes, double intervaloPrecisao, String nomeDaClasse);
     ```` 
 
 #### [ConsumoMemoria](src/avaliadores/ConsumoMemoria.java) (classe)
-- Classe que verifica o consumo de memÛria da implementaÁ„o do Avaliador de Express„o durante a avaliaÁ„o de uma express„o. A
-ferramenta utilizada na verificaÁ„o do consumo de memÛria s„o as funÁıes _totalMemory()_ e _freeMemory()_, ambas da 
-classe [Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html) (clique para abrir a documentaÁ„o da 
-classe). As funÁıes podem ser usadas como abaixo:
+- Classe que verifica o consumo de mem√≥ria da implementa√ß√£o do Avaliador de Express√£o durante a avalia√ß√£o de uma express√£o. A
+ferramenta utilizada na verifica√ß√£o do consumo de mem√≥ria s√£o as fun√ß√µes _totalMemory()_ e _freeMemory()_, ambas da 
+classe [Runtime](https://docs.oracle.com/javase/7/docs/api/java/lang/Runtime.html) (clique para abrir a documenta√ß√£o da 
+classe). As fun√ß√µes podem ser usadas como abaixo:
 
     ````java
     Runtime runtime = Runtime.getRuntime();
@@ -285,10 +285,10 @@ classe). As funÁıes podem ser usadas como abaixo:
     ```` 
 
 #### [Desempenho](src/avaliadores/Desempenho.java) (classe)
-- Classe que avalia o desempenho da implementaÁ„o do Avaliador de Express„o durante a avaliaÁ„o de uma express„o. O desempenho 
-consiste no intervalo de tempo entre o inÌcio e o final da avaliaÁ„o a express„o, e sÛ È considerado caso a resposta
-seja compatÌvel com o resultado esperado. A ferramenta utilizada na avaliaÁ„o ser· o mÈtodo _CurrentTimeMillis()_, da
-classe [System](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html) (clique para abrir a documentaÁ„o da 
+- Classe que avalia o desempenho da implementa√ß√£o do Avaliador de Express√£o durante a avalia√ß√£o de uma express√£o. O desempenho 
+consiste no intervalo de tempo entre o in√≠cio e o final da avalia√ß√£o a express√£o, e s√≥ √© considerado caso a resposta
+seja compat√≠vel com o resultado esperado. A ferramenta utilizada na avalia√ß√£o ser√° o m√©todo _CurrentTimeMillis()_, da
+classe [System](https://docs.oracle.com/javase/7/docs/api/java/lang/System.html) (clique para abrir a documenta√ß√£o da 
 classe), conforme o exemplo abaixo:
 
     ````java
@@ -299,10 +299,10 @@ classe), conforme o exemplo abaixo:
     ````
 
 #### [Latencia](src/avaliadores/Latencia.java) (classe)
-- Classe que avalia a latÍncia do Avaliador de Express„o antes a avaliaÁ„o de uma express„o. A latÍncia se caracteriza 
-como o perÌodo de tempo gasto na execuÁ„o do mÈtodo getExpressaoFor() que deve estar presente na interface Adapter. 
-A forma de verificaÁ„o desse intervalo de tempo tambÈm pode ser o mÈtodo _CurrentTimeMillis()_, da classe System, 
-conforme o exemplo abaixo (tambÈm presente no exemplo de implementaÁ„o):
+- Classe que avalia a lat√™ncia do Avaliador de Express√£o antes a avalia√ß√£o de uma express√£o. A lat√™ncia se caracteriza 
+como o per√≠odo de tempo gasto na execu√ß√£o do m√©todo getExpressaoFor() que deve estar presente na interface Adapter. 
+A forma de verifica√ß√£o desse intervalo de tempo tamb√©m pode ser o m√©todo _CurrentTimeMillis()_, da classe System, 
+conforme o exemplo abaixo (tamb√©m presente no exemplo de implementa√ß√£o):
 
     ````java
     long inicio = System.currentTimeMillis();
